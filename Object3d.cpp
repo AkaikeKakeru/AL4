@@ -412,6 +412,15 @@ void Object3d::LoadTexture()
 
 void Object3d::CreateModel()
 {
+	//ファイルストリーム
+	std::ifstream file;
+	//objファイルを開く
+	file.open("Resouces/triangle/triangle.obj");
+	//ファイルオープンの失敗を確認
+	if (file.fail()) {
+		assert(0);
+	}
+
 	HRESULT result = S_FALSE;
 
 	std::vector<VertexPosNormalUv> realVertices;
