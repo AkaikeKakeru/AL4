@@ -433,8 +433,9 @@ void Object3d::CreateModel()
 		//半角スペース区切りで行の先頭文字列を取得
 		string key;
 		getline(line_stream,key,' ');
-
 	}
+	//ファイルを閉じる
+	file.close();
 
 	HRESULT result = S_FALSE;
 
