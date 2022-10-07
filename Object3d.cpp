@@ -2,10 +2,16 @@
 #include <d3dcompiler.h>
 #include <DirectXTex.h>
 
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <vector>
+
 #pragma comment(lib, "d3dcompiler.lib")
 
 using namespace DirectX;
 using namespace Microsoft::WRL;
+using namespace std;
 
 /// <summary>
 /// 静的メンバ変数の実体
