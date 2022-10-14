@@ -601,7 +601,8 @@ void Object3d::CreateModel()
 	VertexPosNormalUv* vertMap = nullptr;
 	result = vertBuff->Map(0, nullptr, (void**)&vertMap);
 	if (SUCCEEDED(result)) {
-		memcpy(vertMap, vertices, sizeof(vertices));
+		//memcpy(vertMap, vertices, sizeof(vertices));
+		std::copy(vertices.begin(),vertices.end(),vertMap);
 		vertBuff->Unmap(0, nullptr);
 	}
 
@@ -628,10 +629,11 @@ void Object3d::CreateModel()
 	if (SUCCEEDED(result)) {
 
 		// 全インデックスに対して
-		for (int i = 0; i < _countof(indices); i++)
-		{
-			indexMap[i] = indices[i];	// インデックスをコピー
-		}
+		//for (int i = 0; i < _countof(indices); i++)
+		//{
+		//	indexMap[i] = indices[i];	// インデックスをコピー
+		//}
+		std::copy(indices.begin(),indices.end(),indexMap);
 
 		indexBuff->Unmap(0, nullptr);
 	}
@@ -778,5 +780,6 @@ void Object3d::Draw()
 	// シェーダリソースビューをセット
 	cmdList->SetGraphicsRootDescriptorTable(1, gpuDescHandleSRV);
 	// 描画コマンド
-	cmdList->DrawIndexedInstanced(_countof(indices), 1, 0, 0, 0);
+	/*cmdList->DrawIndexedInstanced(_countof(indices), 1, 0, 0, 0);*/
+	cmdList->DrawIndexedInstanced((UINT)indices.size(), 1, 0, 0, 0);
 }
