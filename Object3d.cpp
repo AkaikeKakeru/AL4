@@ -434,6 +434,34 @@ void Object3d::CreateModel()
 		//半角スペース区切りで行の先頭文字列を取得
 		string key;
 		getline(line_stream, key, ' ');
+
+		//先頭文字列がvなら頂点座標
+		if (key == "v") {
+			//X,Y,Z座標読み込み
+			XMFLOAT3 position{};
+			line_stream >> position.x;
+			line_stream >> position.y;
+			line_stream >> position.z;
+			//座標データに追加
+			positions.emplace_back(position);
+			//頂点データに追加
+			VertexPosNormalUv vertex{};
+			vertex.pos = position;
+			vertices.emplace_back(vertex);
+		}
+		//先頭文字列がfならポリゴン(三角形)
+		if (key == "f") {
+			//半角スペース区切りで行の続きを読み込む
+			string index_string;
+			while (getline(line_stream, index_string, ' ')) {
+				//頂点インデックス1個分の文字列をストリームに変換して解析しやすくする
+				std::istringstream index_stream(index_string);
+				unsigned short indexPosition;
+				index_stream >> indexPosition;
+				//頂点インデックスに追加
+				indices.emplace_back(indexPosition - 1);
+			}
+		}
 	}
 	//ファイルを閉じる
 	file.close();
