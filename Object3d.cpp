@@ -36,10 +36,13 @@ XMFLOAT3 Object3d::target = { 0, 0, 0 };
 XMFLOAT3 Object3d::up = { 0, 1, 0 };
 D3D12_VERTEX_BUFFER_VIEW Object3d::vbView{};
 D3D12_INDEX_BUFFER_VIEW Object3d::ibView{};
-Object3d::VertexPosNormalUv Object3d::vertices[vertexCount];
-//unsigned short Object3d::indices[planeCount * 3];
+//Object3d::VertexPosNormalUv Object3d::vertices[vertexCount];
+////unsigned short Object3d::indices[planeCount * 3];
+//
+//unsigned short Object3d::indices[indexCount];
 
-unsigned short Object3d::indices[indexCount];
+std::vector<Object3d::VertexPosNormalUv> Object3d::vertices;
+std::vector<unsigned short> Object3d::indices;
 
 void Object3d::StaticInitialize(ID3D12Device * device, int window_width, int window_height)
 {
@@ -417,9 +420,7 @@ void Object3d::CreateModel()
 	//objファイルを開く
 	file.open("Resources/triangle/triangle.obj");
 	//ファイルオープンの失敗を確認
-	if (file.fail()) {
-		assert(0);
-	}
+	assert(!file.fail());
 
 	vector<XMFLOAT3>positions;//頂点座標
 	vector<XMFLOAT3>normals;//法線ベクトル
