@@ -106,9 +106,6 @@ Object3d* Object3d::Create()
 		return nullptr;
 	}
 
-	//スケールのセット
-	float scale_val = 20;
-	object3d->scale = { scale_val,scale_val,scale_val };
 
 	return object3d;
 }
@@ -594,27 +591,27 @@ void Object3d::CreateModel()
 		//}
 	}
 
-	//四角形の頂点データ
-	VertexPosNormalUv verticesSquare[] = {
-		{{-5.0f,-5.0f,0.0f},{0,0,1},{0,1}},//左下
-		{{-5.0f,+5.0f,0.0f},{0,0,1},{0,0}},//左上
-		{{+5.0f,-5.0f,0.0f},{0,0,1},{1,1}},//右下
-		{{+5.0f,+5.0f,0.0f},{0,0,1},{1,0}},//右上
-	};
+	////四角形の頂点データ
+	//VertexPosNormalUv verticesSquare[] = {
+	//	{{-5.0f,-5.0f,0.0f},{0,0,1},{0,1}},//左下
+	//	{{-5.0f,+5.0f,0.0f},{0,0,1},{0,0}},//左上
+	//	{{+5.0f,-5.0f,0.0f},{0,0,1},{1,1}},//右下
+	//	{{+5.0f,+5.0f,0.0f},{0,0,1},{1,0}},//右上
+	//};
 
-	//メンバ変数にコピー
-	std::copy(std::begin(verticesSquare), std::end(verticesSquare),
-		vertices);
+	////メンバ変数にコピー
+	//std::copy(std::begin(verticesSquare), std::end(verticesSquare),
+	//	vertices);
 
-	//四角形のインデックスデータ
-	unsigned short indicesSquare[] = {
-		0,1,2,//三角形1
-		2,1,3,//三角形2
-	};
+	////四角形のインデックスデータ
+	//unsigned short indicesSquare[] = {
+	//	0,1,2,//三角形1
+	//	2,1,3,//三角形2
+	//};
 
-	//メンバ変数にコピー
-	std::copy(std::begin(indicesSquare), std::end(indicesSquare),
-		indices);
+	////メンバ変数にコピー
+	//std::copy(std::begin(indicesSquare), std::end(indicesSquare),
+	//	indices);
 
 	//UINT sizeVB = static_cast<UINT>(sizeof(vertices));
 	UINT sizeVB = static_cast<UINT>(sizeof(VertexPosNormalUv) * vertices.size());
@@ -635,7 +632,7 @@ void Object3d::CreateModel()
 	result = vertBuff->Map(0, nullptr, (void**)&vertMap);
 	if (SUCCEEDED(result)) {
 		//memcpy(vertMap, vertices, sizeof(vertices));
-		std::copy(vertices.begin(),vertices.end(),vertMap);
+		std::copy(vertices.begin(), vertices.end(), vertMap);
 		vertBuff->Unmap(0, nullptr);
 	}
 
@@ -666,7 +663,7 @@ void Object3d::CreateModel()
 		//{
 		//	indexMap[i] = indices[i];	// インデックスをコピー
 		//}
-		std::copy(indices.begin(),indices.end(),indexMap);
+		std::copy(indices.begin(), indices.end(), indexMap);
 
 		indexBuff->Unmap(0, nullptr);
 	}
