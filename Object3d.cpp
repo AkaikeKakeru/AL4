@@ -418,7 +418,7 @@ void Object3d::CreateModel()
 	//ファイルストリーム
 	std::ifstream file;
 	//objファイルを開く
-	file.open("Resources/triangle/triangle.obj");
+	file.open("Resources/triangle_tex/triangle_tex.obj");
 	//ファイルオープンの失敗を確認
 	assert(!file.fail());
 
