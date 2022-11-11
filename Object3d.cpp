@@ -460,6 +460,16 @@ void Object3d::CreateModel()
 			//テクスチャ座標データに追加
 			texcoords.emplace_back(texcoord);
 		}
+		//先頭文字列がvnなら法線ベクトル
+		if (key == "vn") {
+			//X,Y,Z座標読み込み
+			XMFLOAT3 normal{};
+			line_stream >> normal.x;
+			line_stream >> normal.y;
+			line_stream >> normal.z;
+			//法線ベクトルデータに追加
+			normals.emplace_back(normal);
+		}
 		//先頭文字列がfならポリゴン(三角形)
 		if (key == "f") {
 			//半角スペース区切りで行の続きを読み込む
