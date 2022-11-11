@@ -477,8 +477,12 @@ void Object3d::CreateModel()
 			while (getline(line_stream, index_string, ' ')) {
 				//頂点インデックス1個分の文字列をストリームに変換して解析しやすくする
 				std::istringstream index_stream(index_string);
-				unsigned short indexPosition;
+				unsigned short indexPosition, indexNormal, indexTexcoord;
 				index_stream >> indexPosition;
+				index_stream.seekg(1, ios_base::cur);//スラッシュを飛ばす
+				index_stream >> indexTexcoord;
+				index_stream.seekg(1, ios_base::cur);//スラッシュを飛ばす
+				index_stream >> indexNormal;
 				//頂点インデックスに追加
 				indices.emplace_back(indexPosition - 1);
 			}
