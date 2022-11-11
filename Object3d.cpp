@@ -444,10 +444,6 @@ void Object3d::CreateModel()
 			line_stream >> position.z;
 			//座標データに追加
 			positions.emplace_back(position);
-			////頂点データに追加
-			//VertexPosNormalUv vertex{};
-			//vertex.pos = position;
-			//vertices.emplace_back(vertex);
 		}
 		//先頭文字列がvtならテクスチャ
 		if (key == "vt") {
@@ -483,8 +479,14 @@ void Object3d::CreateModel()
 				index_stream >> indexTexcoord;
 				index_stream.seekg(1, ios_base::cur);//スラッシュを飛ばす
 				index_stream >> indexNormal;
+				//頂点データの追加
+				VertexPosNormalUv vertex{};
+				vertex.pos = positions[indexPosition - 1];
+				vertex.normal = normals[indexNormal - 1];
+				vertex.uv = texcoords[indexTexcoord - 1];
+				vertices.emplace_back(vertex);
 				//頂点インデックスに追加
-				indices.emplace_back(indexPosition - 1);
+				indices.emplace_back((unsigned short)indices.size());
 			}
 		}
 	}
