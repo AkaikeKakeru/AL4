@@ -212,6 +212,11 @@ private:// 静的メンバ関数
 	static void CreateModel();
 
 	/// <summary>
+	/// マテリアル読み込み
+	/// </summary>
+	static void LoadMaterial(const std::string& directoryPath,const std::string filename);
+
+	/// <summary>
 	/// ビュー行列を更新
 	/// </summary>
 	static void UpdateViewMatrix();

@@ -500,6 +500,14 @@ void Object3d::CreateModel()
 				indices.emplace_back((unsigned short)indices.size());
 			}
 		}
+		//先頭文字列がmtlliibならマテリアル
+		if (key == "mtllib") {
+			//マテリアルのファイル名読み込み
+			string filename;
+			line_stream >> filename;
+			//マテリアル読み込み
+			LoadMaterial(directoryPath, filename);
+		}
 	}
 	//ファイルを閉じる
 	file.close();
@@ -576,6 +584,9 @@ void Object3d::CreateModel()
 	ibView.BufferLocation = indexBuff->GetGPUVirtualAddress();
 	ibView.Format = DXGI_FORMAT_R16_UINT;
 	ibView.SizeInBytes = sizeIB;
+}
+
+void Object3d::LoadMaterial(const std::string& directoryPath, const std::string filename){
 }
 
 void Object3d::UpdateViewMatrix()
