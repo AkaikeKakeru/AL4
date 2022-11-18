@@ -215,7 +215,7 @@ private:// 静的メンバ関数
 	/// <summary>
 	/// マテリアル読み込み
 	/// </summary>
-	static void LoadMaterial(const std::string& directoryPath,const std::string filename);
+	static void LoadMaterial(const std::string& directoryPath,const std::string& filename);
 
 	/// <summary>
 	/// ビュー行列を更新

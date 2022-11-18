@@ -58,7 +58,7 @@ void Object3d::StaticInitialize(ID3D12Device* device, int window_width, int wind
 	InitializeGraphicsPipeline();
 
 	// テクスチャ読み込み
-	LoadTexture();
+	//LoadTexture();
 
 	// モデル生成
 	CreateModel();
@@ -350,10 +350,26 @@ bool Object3d::LoadTexture(const std::string& directoryPath, const std::string f
 	TexMetadata metadata{};
 	ScratchImage scratchImg{};
 
+	//ファイルパスを結合
+	string filepath = directoryPath + filename;
+
+	//ユニコード文字列に変換する
+	wchar_t wfilepath[128];
+	int iBufferSize = MultiByteToWideChar(
+		CP_ACP,0,
+		filepath.c_str(),-1,wfilepath,
+		_countof(wfilepath));
+
 	// WICテクスチャのロード
 	//result = LoadFromWICFile(L"Resources/tex1.png", WIC_FLAGS_NONE, &metadata, scratchImg);
-	result = LoadFromWICFile(L"Resources/smile.png", WIC_FLAGS_NONE, &metadata, scratchImg);
-	assert(SUCCEEDED(result));
+	//result = LoadFromWICFile(L"Resources/smile.png", WIC_FLAGS_NONE, &metadata, scratchImg);
+	//assert(SUCCEEDED(result));
+
+	result = LoadFromWICFile(
+		wfilepath,
+		WIC_FLAGS_NONE,
+		&metadata,
+		scratchImg);
 
 	ScratchImage mipChain{};
 	// ミップマップ生成
@@ -414,24 +430,7 @@ bool Object3d::LoadTexture(const std::string& directoryPath, const std::string f
 		cpuDescHandleSRV
 	);
 	
-	//ファイルパスを結合
-	string filepath = directoryPath + filename;
-
-	//ユニコード文字列に変換する
-	wchar_t wfilepath[128];
-	int iBufferSize = MultiByteToWideChar(
-		CP_ACP,
-		0,
-		filepath.c_str(),
-		-1,
-		wfilepath,
-		_countof(wfilepath));
-
-	return LoadFromWICFile(
-		wfilepath,
-		WIC_FLAGS_NONE,
-		&metadata,
-		scratchImg);
+	return true;
 }
 
 void Object3d::CreateModel()
@@ -603,7 +602,9 @@ void Object3d::CreateModel()
 	ibView.SizeInBytes = sizeIB;
 }
 
-void Object3d::LoadMaterial(const std::string& directoryPath, const std::string filename){
+void Object3d::LoadMaterial(
+	const std::string& directoryPath,
+	const std::string& filename){
 	//ファイルストリーム
 	std::ifstream file;
 	//マテリアルファイルを開く
@@ -623,7 +624,7 @@ void Object3d::LoadMaterial(const std::string& directoryPath, const std::string 
 		getline(line_stream, key, ' ');
 
 		//先頭のタブ文字は無視する
-		if (key[0] == '/t') {
+		if (key[0] == '\t') {
 			key.erase(key.begin()); //先頭の文字を削除
 		}
 
