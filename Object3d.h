@@ -204,7 +204,8 @@ private:// 静的メンバ関数
 	/// <summary>
 	/// テクスチャ読み込み
 	/// </summary>
-	static void LoadTexture();
+	/// <returns>成否</returns>
+	static bool LoadTexture(const std::string& directoryPath, const std::string filename);
 
 	/// <summary>
 	/// モデル作成

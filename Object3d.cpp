@@ -344,8 +344,7 @@ void Object3d::InitializeGraphicsPipeline()
 
 }
 
-void Object3d::LoadTexture()
-{
+bool Object3d::LoadTexture(const std::string& directoryPath, const std::string filename){
 	HRESULT result = S_FALSE;
 
 	TexMetadata metadata{};
@@ -414,7 +413,25 @@ void Object3d::LoadTexture()
 		&srvDesc, //テクスチャ設定情報
 		cpuDescHandleSRV
 	);
+	
+	//ファイルパスを結合
+	string filepath = directoryPath + filename;
 
+	//ユニコード文字列に変換する
+	wchar_t wfilepath[128];
+	int iBufferSize = MultiByteToWideChar(
+		CP_ACP,
+		0,
+		filepath.c_str(),
+		-1,
+		wfilepath,
+		_countof(wfilepath));
+
+	return LoadFromWICFile(
+		wfilepath,
+		WIC_FLAGS_NONE,
+		&metadata,
+		scratchImg);
 }
 
 void Object3d::CreateModel()
