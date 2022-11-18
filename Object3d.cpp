@@ -695,11 +695,19 @@ void Object3d::Update()
 	}
 
 	// 定数バッファへデータ転送
-	ConstBufferDataB0* constMap = nullptr;
-	result = constBuffB0->Map(0, nullptr, (void**)&constMap);
+	ConstBufferDataB0* constMap0 = nullptr;
+	result = constBuffB0->Map(0, nullptr, (void**)&constMap0);
 	//constMap->color = color;
-	constMap->mat = matWorld * matView * matProjection;	// 行列の合成
+	constMap0->mat = matWorld * matView * matProjection;	// 行列の合成
 	constBuffB0->Unmap(0, nullptr);
+
+	// 定数バッファへデータ転送
+	ConstBufferDataB1* constMap1 = nullptr;
+	result = constBuffB1->Map(0, nullptr, (void**)&constMap1);
+	constMap1->ambient = material.ambient;
+	constMap1->diffuse = material.diffuse;
+	constMap1->alpha = material.alpha;
+	constBuffB1->Unmap(0, nullptr);
 }
 
 void Object3d::Draw()
