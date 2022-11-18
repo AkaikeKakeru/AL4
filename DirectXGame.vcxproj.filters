@@ -70,7 +70,7 @@
     <None Include="Resources\shaders\SpriteShaderHeader.hlsli">
       <Filter>シェーダー ファイル</Filter>
     </None>
-    <None Include="Resources\shaders\Ojb.hlsli">
+    <None Include="Resources\shaders\Obj.hlsli">
       <Filter>シェーダー ファイル</Filter>
     </None>
   </ItemGroup>
