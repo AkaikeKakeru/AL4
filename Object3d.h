@@ -29,11 +29,22 @@ public: // サブクラス
 		XMFLOAT2 uv;  // uv座標
 	};
 
-	// 定数バッファ用データ構造体
-	struct ConstBufferData
+	// 定数バッファ用データ構造体B0
+	struct ConstBufferDataB0
 	{
-		XMFLOAT4 color;	// 色 (RGBA)
+		//XMFLOAT4 color;	// 色 (RGBA)
 		XMMATRIX mat;	// ３Ｄ変換行列
+	};
+
+	// 定数バッファ用データ構造体B1
+	struct ConstBufferDataB1
+	{
+		XMFLOAT3 ambient;	//アンビエント係数
+		float pad1;			//パディング
+		XMFLOAT3 diffuse;	//ディフューズ係数
+		float pad2;			//パディング
+		XMFLOAT3 specular;	//スペキュラー係数
+		float alpha;		//アルファ
 	};
 
 	//マテリアル
