@@ -421,12 +421,13 @@ void Object3d::CreateModel()
 {
 	//ファイルストリーム
 	std::ifstream file;
-	//objファイルを開く
+	//モデル名
 	const string modelname = "triangle_mat";
 
 	const string filename = modelname + ".obj"; // "modelname.obj"
 	const string directoryPath = "Resources/" + modelname + "/"; // "Resources/modelname/"
 	
+	//objファイルを開く
 	file.open(directoryPath + filename);
 
 	//ファイルオープンの失敗を確認
