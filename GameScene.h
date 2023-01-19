@@ -5,6 +5,7 @@
 #include "Input.h"
 #include "Sprite.h"
 #include "Object3d.h"
+#include "Model.h"
 #include "DebugText.h"
 
 /// <summary>
@@ -15,11 +16,6 @@ class GameScene
 private: // エイリアス
 	// Microsoft::WRL::を省略
 	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
-	// DirectX::を省略
-	using XMFLOAT2 = DirectX::XMFLOAT2;
-	using XMFLOAT3 = DirectX::XMFLOAT3;
-	using XMFLOAT4 = DirectX::XMFLOAT4;
-	using XMMATRIX = DirectX::XMMATRIX;
 
 private: // 静的メンバ変数
 	static const int debugTextTexNumber = 0;
@@ -60,8 +56,11 @@ private: // メンバ変数
 	/// ゲームシーン用
 	/// </summary>
 	Sprite* spriteBG_ = nullptr;
-	Object3d* object3d_ = nullptr;
-	Object3d* plane_ = nullptr;
+	Object3d* objectTriangle_ = nullptr;
+	Object3d* objectPlane_ = nullptr;
+
+	Model* modelTriangle_ = nullptr;
+	Model* modelPlane_ = nullptr;
 
 private: // メンバ変数
 	Sprite* sprite1_ = nullptr;

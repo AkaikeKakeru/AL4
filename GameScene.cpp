@@ -15,10 +15,16 @@ GameScene::GameScene()
 
 GameScene::~GameScene()
 {
-	delete spriteBG_;
-	delete object3d_;
+	//オブジェクトの解放
+	safe_delete(objectTriangle_);
+	safe_delete(objectPlane_);
+
+	//モデルの解放
+	safe_delete(modelTriangle_);
+	safe_delete(modelPlane_);
 
 	//スプライトの解放
+	safe_delete(spriteBG_);
 	safe_delete(sprite1_);
 	safe_delete(sprite2_);
 }
@@ -50,9 +56,20 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 
 	// 背景スプライト生成
 	spriteBG_ = Sprite::Create(1, { 0.0f,0.0f });
+
+	//3Dモデル読み込み
 	// 3Dオブジェクト生成
-	object3d_ = Object3d::Create();
-	object3d_->Update();
+	modelTriangle_ = Model::LoadFromOBJ("triangle_mat");
+
+	objectTriangle_ = Object3d::Create();
+	objectTriangle_->SetModel(modelTriangle_);
+	objectTriangle_->Update();
+
+	modelPlane_ = Model::LoadFromOBJ("plane");
+
+	objectPlane_ = Object3d::Create();
+	objectPlane_->SetModel(modelPlane_);
+	objectPlane_->Update();
 }
 
 void GameScene::Update()
@@ -61,7 +78,7 @@ void GameScene::Update()
 	if (input_->PushKey(DIK_UP) || input_->PushKey(DIK_DOWN) || input_->PushKey(DIK_RIGHT) || input_->PushKey(DIK_LEFT))
 	{
 		// 現在の座標を取得
-		XMFLOAT3 position = object3d_->GetPosition();
+		Vector3 position = objectPlane_->GetPosition();
 
 		// 移動後の座標を計算
 		if (input_->PushKey(DIK_UP)) { position.y += 1.0f; }
@@ -70,7 +87,7 @@ void GameScene::Update()
 		else if (input_->PushKey(DIK_LEFT)) { position.x -= 1.0f; }
 
 		// 座標の変更を反映
-		object3d_->SetPosition(position);
+		objectPlane_->SetPosition(position);
 	}
 
 	// カメラ移動
@@ -95,7 +112,8 @@ void GameScene::Update()
 		sprite1_->SetPosition(position);
 	}
 
-	object3d_->Update();
+	objectTriangle_->Update();
+	objectPlane_->Update();
 }
 
 void GameScene::Draw()
@@ -124,7 +142,8 @@ void GameScene::Draw()
 	Object3d::PreDraw(cmdList);
 
 	// 3Dオブクジェクトの描画
-	object3d_->Draw();
+	objectTriangle_->Draw();
+	objectPlane_->Draw();
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
