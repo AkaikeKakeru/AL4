@@ -20,13 +20,19 @@ GameScene::~GameScene()
 	safe_delete(objectPlane_);
 	safe_delete(objectRobot_);
 
+	safe_delete(objectSkydome_);
+	safe_delete(objectGround_);
+
 	//モデルの解放
 	safe_delete(modelTriangle_);
 	safe_delete(modelPlane_);
 	safe_delete(modelRobot_);
 
+	safe_delete(modelSkydome_);
+	safe_delete(modelGround_);
+
 	//スプライトの解放
-	safe_delete(spriteBG_);
+	//safe_delete(spriteBG_);
 	safe_delete(sprite1_);
 	safe_delete(sprite2_);
 }
@@ -57,12 +63,14 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 	sprite2_ = Sprite::Create(2, { 500,500 }, { 1,0,0,1 }, { 0,0 }, false, true);
 
 	// 背景スプライト生成
-	spriteBG_ = Sprite::Create(1, { 0.0f,0.0f });
+	//spriteBG_ = Sprite::Create(1, { 0.0f,0.0f });
 
 	//3Dモデル読み込み
 	modelTriangle_ = Model::LoadFromOBJ("triangle_mat");
 	modelPlane_ = Model::LoadFromOBJ("plane");
 	modelRobot_ = Model::LoadFromOBJ("robot");
+	modelSkydome_ = Model::LoadFromOBJ("skydome");
+	modelGround_ = Model::LoadFromOBJ("ground");
 
 	// 3Dオブジェクト生成
 	objectTriangle_ = Object3d::Create();
@@ -76,6 +84,16 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 	objectRobot_ = Object3d::Create();
 	objectRobot_->SetModel(modelRobot_);
 	objectRobot_->Update();
+
+	objectSkydome_ = Object3d::Create();
+	objectSkydome_->SetModel(modelSkydome_);
+	objectSkydome_->SetScale({200, 200, 200});
+	objectSkydome_->Update();
+
+	objectGround_ = Object3d::Create();
+	objectGround_->SetModel(modelGround_);
+	objectGround_->SetScale({200, 200, 200});
+	objectGround_->Update();
 }
 
 void GameScene::Update()
@@ -118,6 +136,9 @@ void GameScene::Update()
 		sprite1_->SetPosition(position);
 	}
 
+	objectGround_->Update();
+	objectSkydome_->Update();
+
 	objectTriangle_->Update();
 	objectPlane_->Update();
 	objectRobot_->Update();
@@ -132,7 +153,7 @@ void GameScene::Draw()
 	// 背景スプライト描画前処理
 	Sprite::PreDraw(cmdList);
 	// 背景スプライト描画
-	spriteBG_->Draw();
+//	spriteBG_->Draw();
 
 	/// <summary>
 	/// ここに背景スプライトの描画処理を追加できる
@@ -149,6 +170,9 @@ void GameScene::Draw()
 	Object3d::PreDraw(cmdList);
 
 	// 3Dオブクジェクトの描画
+	objectGround_->Draw();
+	objectSkydome_->Draw();
+
 	objectTriangle_->Draw();
 	objectPlane_->Draw();
 	objectRobot_->Draw();

@@ -55,14 +55,18 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
-	Sprite* spriteBG_ = nullptr;
+	//Sprite* spriteBG_ = nullptr;
 	Object3d* objectTriangle_ = nullptr;
 	Object3d* objectPlane_ = nullptr;
 	Object3d* objectRobot_ = nullptr;
+	Object3d* objectSkydome_ = nullptr;
+	Object3d* objectGround_ = nullptr;
 
 	Model* modelTriangle_ = nullptr;
 	Model* modelPlane_ = nullptr;
 	Model* modelRobot_ = nullptr;
+	Model* modelSkydome_ = nullptr;
+	Model* modelGround_ = nullptr;
 
 private: // メンバ変数
 	Sprite* sprite1_ = nullptr;
