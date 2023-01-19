@@ -1,17 +1,17 @@
 cbuffer cbuff0 : register(b0) {
-	matrix mat; //3D•ÏŠ·s—ñ
+	matrix mat; //3Då¤‰æ›è¡Œåˆ—
 };
 
 cbuffer cbuff1 : register(b1) {
-	float3 m_ambient : packoffset(c0); //ƒAƒ“ƒrƒGƒ“ƒgŒW”
-	float3 m_diffuse : packoffset(c1); //ƒfƒBƒtƒ…[ƒYŒW”
-	float3 m_specular : packoffset(c2); //ƒXƒyƒLƒ…ƒ‰[ŒW”
-	float m_alpha : packoffset(c2.w); //ƒAƒ‹ƒtƒ@
+	float3 m_ambient : packoffset(c0); //ã‚¢ãƒ³ãƒ“ã‚¨ãƒ³ãƒˆä¿‚æ•°
+	float3 m_diffuse : packoffset(c1); //ãƒ‡ã‚£ãƒ’ãƒ¥ãƒ¼ã‚ºä¿‚æ•°
+	float3 m_specular : packoffset(c2); //ã‚¹ãƒšã‚­ãƒ¥ãƒ©ãƒ¼ä¿‚æ•°
+	float m_alpha : packoffset(c2.w); //ã‚¢ãƒ«ãƒ•ã‚¡
 }
 
-//’¸“_ƒVƒF[ƒ_[‚©‚çƒsƒNƒZƒ‹ƒVƒF[ƒ_[‚Ö‚Ì‚â‚èæ‚è‚Ég—p‚·‚é\‘¢‘Ì
+//é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ã‹ã‚‰ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ã¸ã®ã‚„ã‚Šå–ã‚Šã«ä½¿ç”¨ã™ã‚‹æ§‹é€ ä½“
 struct VSOutput {
-	float4 svpos : SV_POSITION; //ƒVƒXƒeƒ€—p’¸“_À•W
-	float3 normal : NORMAL; //–@üƒxƒNƒgƒ‹
-	float2 uv : TEXCOORD; //uv’l
+	float4 svpos : SV_POSITION; //ã‚·ã‚¹ãƒ†ãƒ ç”¨é ‚ç‚¹åº§æ¨™
+	float3 normal : NORMAL; //æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«
+	float2 uv : TEXCOORD; //uvå€¤
 };
