@@ -18,10 +18,12 @@ GameScene::~GameScene()
 	//オブジェクトの解放
 	safe_delete(objectTriangle_);
 	safe_delete(objectPlane_);
+	safe_delete(objectRobot_);
 
 	//モデルの解放
 	safe_delete(modelTriangle_);
 	safe_delete(modelPlane_);
+	safe_delete(modelRobot_);
 
 	//スプライトの解放
 	safe_delete(spriteBG_);
@@ -58,18 +60,22 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 	spriteBG_ = Sprite::Create(1, { 0.0f,0.0f });
 
 	//3Dモデル読み込み
-	// 3Dオブジェクト生成
 	modelTriangle_ = Model::LoadFromOBJ("triangle_mat");
+	modelPlane_ = Model::LoadFromOBJ("plane");
+	modelRobot_ = Model::LoadFromOBJ("robot");
 
+	// 3Dオブジェクト生成
 	objectTriangle_ = Object3d::Create();
 	objectTriangle_->SetModel(modelTriangle_);
 	objectTriangle_->Update();
 
-	modelPlane_ = Model::LoadFromOBJ("plane");
-
 	objectPlane_ = Object3d::Create();
 	objectPlane_->SetModel(modelPlane_);
 	objectPlane_->Update();
+
+	objectRobot_ = Object3d::Create();
+	objectRobot_->SetModel(modelRobot_);
+	objectRobot_->Update();
 }
 
 void GameScene::Update()
@@ -114,6 +120,7 @@ void GameScene::Update()
 
 	objectTriangle_->Update();
 	objectPlane_->Update();
+	objectRobot_->Update();
 }
 
 void GameScene::Draw()
@@ -144,6 +151,7 @@ void GameScene::Draw()
 	// 3Dオブクジェクトの描画
 	objectTriangle_->Draw();
 	objectPlane_->Draw();
+	objectRobot_->Draw();
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる

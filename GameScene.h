@@ -58,9 +58,11 @@ private: // メンバ変数
 	Sprite* spriteBG_ = nullptr;
 	Object3d* objectTriangle_ = nullptr;
 	Object3d* objectPlane_ = nullptr;
+	Object3d* objectRobot_ = nullptr;
 
 	Model* modelTriangle_ = nullptr;
 	Model* modelPlane_ = nullptr;
+	Model* modelRobot_ = nullptr;
 
 private: // メンバ変数
 	Sprite* sprite1_ = nullptr;
