@@ -79,6 +79,7 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 
 	objectPlane_ = Object3d::Create();
 	objectPlane_->SetModel(modelPlane_);
+	objectPlane_->SetPosition({ 0,20,0 });
 	objectPlane_->Update();
 
 	objectRobot_ = Object3d::Create();
@@ -115,12 +116,20 @@ void GameScene::Update()
 	}
 
 	// カメラ移動
-	if (input_->PushKey(DIK_W) || input_->PushKey(DIK_S) || input_->PushKey(DIK_D) || input_->PushKey(DIK_A))
+	if (input_->PushKey(DIK_W) || 
+		input_->PushKey(DIK_S) || 
+		input_->PushKey(DIK_D) || 
+		input_->PushKey(DIK_A) ||
+		input_->PushKey(DIK_Q) || 
+		input_->PushKey(DIK_C) )
 	{
-		if (input_->PushKey(DIK_W)) { Object3d::CameraMoveEyeVector({ 0.0f,+1.0f,0.0f }); }
-		else if (input_->PushKey(DIK_S)) { Object3d::CameraMoveEyeVector({ 0.0f,-1.0f,0.0f }); }
-		if (input_->PushKey(DIK_D)) { Object3d::CameraMoveEyeVector({ +1.0f,0.0f,0.0f }); }
-		else if (input_->PushKey(DIK_A)) { Object3d::CameraMoveEyeVector({ -1.0f,0.0f,0.0f }); }
+		if (input_->PushKey(DIK_W)) { Object3d::CameraMoveVector({ 0.0f,+1.0f,0.0f }); }
+		else if (input_->PushKey(DIK_S)) { Object3d::CameraMoveVector({ 0.0f,-1.0f,0.0f }); }
+		if (input_->PushKey(DIK_D)) { Object3d::CameraMoveVector({ +1.0f,0.0f,0.0f }); }
+		else if (input_->PushKey(DIK_A)) { Object3d::CameraMoveVector({ -1.0f,0.0f,0.0f }); }
+		if (input_->PushKey(DIK_Q)) { Object3d::CameraMoveVector({ 0.0f,0.0f,+1.0f }); }
+		else if (input_->PushKey(DIK_C)) { Object3d::CameraMoveVector({ 0.0f,0.0f,-1.0f }); }
+
 	}
 
 	// オブジェクト移動
