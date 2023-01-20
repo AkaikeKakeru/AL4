@@ -1,3 +1,4 @@
+#pragma warning(disable:4819)
 #include "Vector4.h"
 
 Vector4::Vector4()

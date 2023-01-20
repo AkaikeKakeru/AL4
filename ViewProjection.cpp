@@ -1,3 +1,4 @@
+#pragma warning(disable:4819)
 #include "ViewProjection.h"
 #include "WinApp.h"
 #include <cmath>

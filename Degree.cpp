@@ -1,3 +1,4 @@
+#pragma warning(disable:4819)
 #include "Degree.h"
 
 float ConvertToRadian(float degree) {

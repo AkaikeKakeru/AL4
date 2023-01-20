@@ -1,3 +1,4 @@
+#pragma warning(disable:4819)
 #include "Model.h"
 #include <cassert>
 #include <fstream>
@@ -7,6 +8,7 @@
 #include <DirectXTex.h>
 using namespace std;
 using namespace DirectX;
+
 
 template <class T>
 using ComPtr = Microsoft::WRL::ComPtr<T>;

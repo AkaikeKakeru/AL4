@@ -1,5 +1,5 @@
 #pragma once
-
+#pragma warning(disable:4819)
 class Vector4 {
 public:
 	float x;

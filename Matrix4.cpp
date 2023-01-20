@@ -1,3 +1,4 @@
+#pragma warning(disable:4819)
 #include "Matrix4.h"
 #include "Vector3.h"
 #include <cmath> //sin cos

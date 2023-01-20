@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning(disable:4819)
 #include "Vector3.h"
 
 struct Matrix4 {

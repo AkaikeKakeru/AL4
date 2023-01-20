@@ -1,3 +1,4 @@
+#pragma warning(disable:4819)
 #include "WorldTransform.h"
 #include <d3dx12.h>
 #include "DirectXCommon.h"

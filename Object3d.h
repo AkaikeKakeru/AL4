@@ -1,5 +1,5 @@
 ﻿#pragma once
-
+#pragma warning(disable:4819)
 #include <Windows.h>
 #include <wrl.h>
 #include <d3d12.h>
