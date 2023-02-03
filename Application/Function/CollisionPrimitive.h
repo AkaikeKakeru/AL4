@@ -22,6 +22,10 @@ struct Plane {
 //法線付き三角形(時計回りが表面)
 class Triangle{
 public:
+	//法線の算出
+	void ComputeNormal();
+
+public:
 	//頂点座標3つ
 	Vector3 p0_;
 	Vector3 p1_;

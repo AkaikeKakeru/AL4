@@ -97,6 +97,7 @@
     <ClCompile Include="Application\Base\Framework.cpp" />
     <ClCompile Include="Application\Base\Input.cpp" />
     <ClCompile Include="Application\Base\WinApp.cpp" />
+    <ClCompile Include="Application\Function\CollisionPrimitive.cpp" />
     <ClCompile Include="Application\Game\GameMain.cpp" />
     <ClCompile Include="Application\Game\Scene\GamePlayScene.cpp" />
     <ClCompile Include="Application\Game\Scene\Manager\BaseScene.cpp" />
