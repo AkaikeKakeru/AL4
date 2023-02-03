@@ -182,6 +182,7 @@
     <ClInclude Include="Application\Math\Vector4.h" />
     <ClInclude Include="Application\Function\Collision.h" />
     <ClInclude Include="Application\Function\CollisionPrimitive.h" />
+    <ClInclude Include="CollisionTypes.h" />
     <ClInclude Include="Engine\2d\DrawBasis.h" />
     <ClInclude Include="Engine\2d\Sprite.h" />
     <ClInclude Include="Engine\3d\Camera\Camera.h" />
