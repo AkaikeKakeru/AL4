@@ -29,3 +29,12 @@ public:
 	//法線ベクトル
 	Vector3 normal_;
 };
+
+//レイ(半直線)
+class Ray{
+public:
+	//始点座標
+	Vector3 start_ = {0,0,0};
+	//方向
+	Vector3 dir_ = {1,0,0};
+};
