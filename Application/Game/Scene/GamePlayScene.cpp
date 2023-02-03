@@ -180,7 +180,7 @@ void GamePlayScene::Update2d() {
 
 	Vector3 inter;
 	//当たり判定
-	if (Collision::CheckSphereToPlane(sphere_, plane_,&inter)) {
+	if (Collision::CheckSphere2Plane(sphere_, plane_,&inter)) {
 		debugText_.Print("HIT", 50, 200, 1.0f);
 
 		//交点座標を埋め込む
