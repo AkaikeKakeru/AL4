@@ -83,6 +83,12 @@ void GamePlayScene::Initialize2d() {
 	//平面の初期値
 	plane_.normal_ = { 0,1,0 };
 	plane_.distance_ = 0.0f;
+
+	//三角形の初期値
+	triangle_.p0_ = Vector3(-1.0f, 0, -1.0f);//左手前
+	triangle_.p1_ = Vector3(-1.0f, 0, -1.0f);//左奥
+	triangle_.p2_ = Vector3(-1.0f, 0, -1.0f);//右手前
+	triangle_.normal_ = Vector3(-1.0f, 0, -1.0f);//上向き
 }
 
 void GamePlayScene::Update3d() {
