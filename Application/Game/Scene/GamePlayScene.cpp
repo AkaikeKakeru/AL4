@@ -2,6 +2,10 @@
 #include "SafeDelete.h"
 #include "Quaternion.h"
 
+#include "Collision.h"
+#include <sstream>
+#include <iomanip>
+
 DirectXBasis* GamePlayScene::dxBas_ = DirectXBasis::GetInstance();
 Input* GamePlayScene::input_ = Input::GetInstance();
 DrawBasis* GamePlayScene::drawBas_ = DrawBasis::GetInstance();
@@ -62,11 +66,23 @@ void GamePlayScene::Initialize3d() {
 }
 
 void GamePlayScene::Initialize2d() {
+
+	drawBas_->LoadTexture(0, "debugfont.png");
+	debugText_.Initialize(0);
+
 	drawBas_->LoadTexture(1, "texture.png");
 	sprite_->Initialize(drawBas_, 1);
 
 	sprite_->SetAnchorPoint({ 0.5f, 0.5f });
 	sprite_->SetSize({ 64,64 });
+
+	//球の初期値
+	sphere_.center_ = { 0,2,1 };
+	sphere_.radius_ = 1.0f;
+
+	//平面の初期値
+	plane_.normal_ = { 0,1,0 };
+	plane_.distance_ = 0.0f;
 }
 
 void GamePlayScene::Update3d() {
@@ -130,6 +146,54 @@ void GamePlayScene::Update2d() {
 	sprite_->SetPosition(position);
 
 	sprite_->Update();
+
+	//球移動
+	{
+		Vector3 moveY = { 0,0.01f,0 };
+		Vector3 moveX = { 0.01f,0,0 };
+
+		if (input_->PressKey(DIK_8)) {
+			sphere_.center_ += moveY;
+		}
+		else if (input_->PressKey(DIK_2)) {
+			sphere_.center_ -= moveY;
+		}
+
+		if (input_->PressKey(DIK_6)) {
+			sphere_.center_ += moveX;
+		}
+		else if (input_->PressKey(DIK_4)) {
+			sphere_.center_ -= moveX;
+		}
+	}
+
+	//整形する
+	std::ostringstream spherestr;
+	spherestr << "Sphere:("
+		<< std::fixed << std::setprecision(2)
+		<< sphere_.center_.x << "," 
+		<< sphere_.center_.y << "," 
+		<< sphere_.center_.z << ")";
+
+	debugText_.Print(spherestr.str(), 50, 180, 1.0f);
+
+
+	Vector3 inter;
+	//当たり判定
+	if (Collision::CheckSphereToPlane(sphere_, plane_,&inter)) {
+		debugText_.Print("HIT", 50, 200, 1.0f);
+
+		//交点座標を埋め込む
+		spherestr.str("");
+		spherestr.clear();
+		spherestr << "("
+			<< std::fixed << std::setprecision(2)
+			<< inter.x << ","
+			<< inter.y << ","
+			<< inter.z << ")";
+
+		debugText_.Print(spherestr.str(), 50, 220, 1.0f);
+	}
 }
 
 void GamePlayScene::Draw3d() {
@@ -139,6 +203,7 @@ void GamePlayScene::Draw3d() {
 
 void GamePlayScene::Draw2d() {
 	sprite_->Draw();
+	debugText_.DrawAll();
 }
 
 Vector3 GamePlayScene::CreateRotationVector(Vector3 axisAngle, float angleRadian) {

@@ -10,6 +10,8 @@
 #include "Camera.h"
 #include "Light.h"
 
+#include "DebugText.h"
+
 #include "CollisionPrimitive.h"
 
 #include <memory>
@@ -40,6 +42,8 @@ private:
 	static Input* input_;
 	static DrawBasis* drawBas_;
 
+	DebugText debugText_;
+
 	Camera* camera_ = nullptr;
 	Light* light_ = nullptr;
 
@@ -56,4 +60,10 @@ private:
 	/// スプライト
 	/// </summary>
 	Sprite* sprite_ = new Sprite();
+
+	//当たり判定 球
+	Sphere sphere_;
+
+	//当たり判定 平面
+	Plane plane_;
 };
