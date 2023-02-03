@@ -129,3 +129,34 @@ bool Collision::CheckSphere2Triangle(const Sphere& sphere, const Triangle& trian
 
 	return true;
 }
+
+bool Collision::CheckRay2Plane(const Ray& ray, const Plane& plane, float* distance, Vector3* inter) {
+	const float epsilon = 1.0e-5f; //誤差吸収用の微小な値
+
+	//面法線とレイの方向ベクトルの内積
+	float d1 = Vector3Dot(plane.normal_, ray.dir_);
+
+	//裏面には当たらない
+	if (d1 > -epsilon) { return false; }
+
+	//視点と原点の距離(平面の法線方向)
+	//面法線とレイの始点座標の内積
+	float d2 = Vector3Dot(plane.normal_, ray.start_);
+
+	//始点と平面の距離(平面の法線方向)
+	float dist = d2 - plane.distance_;
+
+	//始点と平面の距離(レイ方向)
+	float t = dist / d1;
+
+	//交点が始点より後ろにあるので、当たらない
+	if (t < 0)return false;
+
+	//距離を書き込む
+	if (distance) { *distance = t; }
+
+	//交点を計算
+	if (inter) { *inter = ray.start_ + t * ray.dir_; }
+
+	return true;
+}

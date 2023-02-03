@@ -44,4 +44,15 @@ public:
 	/// <returns>衝突しているか</returns>
 	static bool CheckSphere2Triangle(
 		const Sphere& sphere, const Triangle& triangle, Vector3* inter = nullptr);
+
+	/// <summary>
+	/// レイと平面の衝突判定
+	/// </summary>
+	/// <param name="ray">レイ</param>
+	/// <param name="plane">平面</param>
+	/// <param name="distance">距離(出力)</param>
+	/// <param name="inter">交点(出力用)</param>
+	/// <returns>衝突しているか</returns>
+	static bool CheckRay2Plane(const Ray& ray, const Plane& plane,
+		float* distance = nullptr, Vector3* inter = nullptr);
 };
