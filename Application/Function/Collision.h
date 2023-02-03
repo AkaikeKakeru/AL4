@@ -69,6 +69,18 @@ public:
 		const Ray& ray, const Triangle& triangle,
 		float* distance = nullptr, Vector3* inter = nullptr);
 
+	/// <summary>
+	/// レイと球の衝突判定
+	/// </summary>
+	/// <param name="ray">レイ</param>
+	/// <param name="sphere">球</param>
+	/// <param name="distance">距離(出力)</param>
+	/// <param name="inter">交点(出力用)</param>
+	/// <returns>衝突しているか</returns>
+	static bool CheckRay2Sphere(
+		const Ray& ray, const Sphere& sphere,
+		float* distance = nullptr, Vector3* inter = nullptr);
+
 private:
 	//誤差吸収用の微小な値
 	static const float EPSILON_;

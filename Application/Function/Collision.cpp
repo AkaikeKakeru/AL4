@@ -204,3 +204,28 @@ bool Collision::CheckRay2Triangle(const Ray& ray, const Triangle& triangle, floa
 
 	return true;
 }
+
+bool Collision::CheckRay2Sphere(const Ray& ray, const Sphere& sphere, float* distance, Vector3* inter) {
+	Vector3 m = ray.start_ - sphere.center_;
+	float b = Vector3Dot(m, ray.dir_);
+	float c = Vector3Dot(m, m) - sphere.radius_ * sphere.radius_;
+
+	//rayの始点がsphereの外側にあり(c > 0)、rayがsphereから離れていく方向を指している場合(b > 0)、当たらない
+	if (c > 0.0f && b > 0.0f) { return false; }
+
+	float discr = b * b - c;
+	//負の判別式は球が外れていることに一致
+	if (discr < 0.0f) { return false; }
+
+	//レイは球と交差している
+	//交差する最小の値を計算
+	float t = -b - SquareRoot(discr);
+
+	//tが負である場合、レイが球の内側から開始しているので、tをゼロにクランプ
+	if (t < 0)t = 0.0f;
+	if (distance) { *distance = t; }
+
+	if (inter) { *inter = ray.start_ + t * ray.dir_; }
+
+	return true;
+}
