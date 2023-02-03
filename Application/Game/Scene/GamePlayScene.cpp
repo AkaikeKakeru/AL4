@@ -159,7 +159,7 @@ void GamePlayScene::Update2d() {
 	sprite_->Update();
 
 	//球移動
-	{
+	if(false) {
 		Vector3 moveY = { 0,0.01f,0 };
 		Vector3 moveX = { 0.01f,0,0 };
 
@@ -186,14 +186,44 @@ void GamePlayScene::Update2d() {
 		<< sphere_.center_.y << ","
 		<< sphere_.center_.z << ")";
 
-	debugText_.Print(spherestr.str(), 50, 180, 1.0f);
+	debugText_.Print(spherestr.str(), 50, 20, 1.0f);
+
+	//レイ移動
+	if(true) {
+		Vector3 moveZ = { 0,0,0.01f };
+		Vector3 moveX = { 0.01f,0,0 };
+
+		if (input_->PressKey(DIK_UP)) {
+			ray_.start_ += moveZ;
+		}
+		else if (input_->PressKey(DIK_DOWN)) {
+			ray_.start_ -= moveZ;
+		}
+
+		if (input_->PressKey(DIK_RIGHT)) {
+			ray_.start_ += moveX;
+		}
+		else if (input_->PressKey(DIK_LEFT)) {
+			ray_.start_ -= moveX;
+		}
+	}
+
+	//整形する
+	std::ostringstream raystr;
+	raystr << "ray_start:("
+		<< std::fixed << std::setprecision(2)
+		<< ray_.start_.x << ","
+		<< ray_.start_.y << ","
+		<< ray_.start_.z << ")";
+
+	debugText_.Print(raystr.str(), 50, 180, 1.0f);
 
 	//球と平面の交差判定
 	if(false) {
 		Vector3 inter;
 		//当たり判定
 		if (Collision::CheckSphere2Plane(sphere_, plane_, &inter)) {
-			debugText_.Print("HIT", 50, 200, 1.0f);
+			debugText_.Print("HIT", 50, 60, 1.0f);
 
 			//交点座標を埋め込む
 			spherestr.str("");
@@ -204,12 +234,12 @@ void GamePlayScene::Update2d() {
 				<< inter.y << ","
 				<< inter.z << ")";
 
-			debugText_.Print(spherestr.str(), 50, 220, 1.0f);
+			debugText_.Print(spherestr.str(), 50, 80, 1.0f);
 		}
 	}
 
 	//球と三角形の衝突判定
-	if(true) {
+	if(false) {
 		Vector3 inter;
 		//当たり判定
 		if (Collision::CheckSphere2Triangle(sphere_, triangle_, &inter)) {
@@ -225,6 +255,27 @@ void GamePlayScene::Update2d() {
 				<< inter.z << ")";
 
 			debugText_.Print(spherestr.str(), 50, 220, 1.0f);
+		}
+	}
+
+	//レイと平面の衝突判定
+	if(true) {
+		Vector3 inter;
+		float distance;
+		//当たり判定
+		if (Collision::CheckRay2Plane(ray_, plane_,&distance, &inter)) {
+			debugText_.Print("HIT", 50, 200, 1.0f);
+
+			//交点座標を埋め込む
+			raystr.str("");
+			raystr.clear();
+			raystr << "("
+				<< std::fixed << std::setprecision(2)
+				<< inter.x << ","
+				<< inter.y << ","
+				<< inter.z << ")";
+
+			debugText_.Print(raystr.str(), 50, 220, 1.0f);
 		}
 	}
 }
