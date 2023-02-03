@@ -147,7 +147,7 @@ bool Collision::CheckRay2Plane(const Ray& ray, const Plane& plane, float* distan
 	float dist = d2 - plane.distance_;
 
 	//始点と平面の距離(レイ方向)
-	float t = dist / d1;
+	float t = dist / -d1;
 
 	//交点が始点より後ろにあるので、当たらない
 	if (t < 0)return false;
