@@ -86,44 +86,44 @@ void GamePlayScene::Initialize2d() {
 
 	//三角形の初期値
 	triangle_.p0_ = Vector3(-1.0f, 0, -1.0f);//左手前
-	triangle_.p1_ = Vector3(-1.0f, 0, -1.0f);//左奥
-	triangle_.p2_ = Vector3(-1.0f, 0, -1.0f);//右手前
-	triangle_.normal_ = Vector3(-1.0f, 0, -1.0f);//上向き
+	triangle_.p1_ = Vector3(-1.0f, 0, +1.0f);//左奥
+	triangle_.p2_ = Vector3(+1.0f, 0, -1.0f);//右手前
+	triangle_.normal_ = Vector3(0.0f, 1.0f, 0.0f);//上向き
 }
 
 void GamePlayScene::Update3d() {
 	// オブジェクト移動
-	if (input_->PressKey(DIK_UP) ||
-		input_->PressKey(DIK_DOWN) ||
-		input_->PressKey(DIK_RIGHT) ||
-		input_->PressKey(DIK_LEFT)) {
-		// 現在の座標を取得
-		Vector3 position = planeObj_->GetPosition();
+	//if (input_->PressKey(DIK_UP) ||
+	//	input_->PressKey(DIK_DOWN) ||
+	//	input_->PressKey(DIK_RIGHT) ||
+	//	input_->PressKey(DIK_LEFT)) {
+	//	// 現在の座標を取得
+	//	Vector3 position = planeObj_->GetPosition();
 
-		//移動スピード
-		float moveSpeed = 0.5f;
+	//	//移動スピード
+	//	float moveSpeed = 0.5f;
 
-		//移動後の座標を計算
-		if (input_->PressKey(DIK_UP)) {
-			// 移動後の座標を計算
-			position.y += moveSpeed;
-		}
+	//	//移動後の座標を計算
+	//	if (input_->PressKey(DIK_UP)) {
+	//		// 移動後の座標を計算
+	//		position.y += moveSpeed;
+	//	}
 
-		else if (input_->PressKey(DIK_DOWN)) {
-			position.y -= moveSpeed;
-		}
+	//	else if (input_->PressKey(DIK_DOWN)) {
+	//		position.y -= moveSpeed;
+	//	}
 
-		if (input_->PressKey(DIK_RIGHT)) {
-			position.x += moveSpeed;
-		}
+	//	if (input_->PressKey(DIK_RIGHT)) {
+	//		position.x += moveSpeed;
+	//	}
 
-		else if (input_->PressKey(DIK_LEFT)) {
-			position.x -= moveSpeed;
-		}
+	//	else if (input_->PressKey(DIK_LEFT)) {
+	//		position.x -= moveSpeed;
+	//	}
 
-		// 座標の変更を反映
-		planeObj_->SetPosition(position);
-	}
+	//	// 座標の変更を反映
+	//	planeObj_->SetPosition(position);
+	//}
 
 	// カメラ移動
 	if (input_->PressKey(DIK_W) ||
@@ -158,17 +158,17 @@ void GamePlayScene::Update2d() {
 		Vector3 moveY = { 0,0.01f,0 };
 		Vector3 moveX = { 0.01f,0,0 };
 
-		if (input_->PressKey(DIK_8)) {
+		if (input_->PressKey(DIK_UP)) {
 			sphere_.center_ += moveY;
 		}
-		else if (input_->PressKey(DIK_2)) {
+		else if (input_->PressKey(DIK_DOWN)) {
 			sphere_.center_ -= moveY;
 		}
 
-		if (input_->PressKey(DIK_6)) {
+		if (input_->PressKey(DIK_RIGHT)) {
 			sphere_.center_ += moveX;
 		}
-		else if (input_->PressKey(DIK_4)) {
+		else if (input_->PressKey(DIK_LEFT)) {
 			sphere_.center_ -= moveX;
 		}
 	}
@@ -177,28 +177,50 @@ void GamePlayScene::Update2d() {
 	std::ostringstream spherestr;
 	spherestr << "Sphere:("
 		<< std::fixed << std::setprecision(2)
-		<< sphere_.center_.x << "," 
-		<< sphere_.center_.y << "," 
+		<< sphere_.center_.x << ","
+		<< sphere_.center_.y << ","
 		<< sphere_.center_.z << ")";
 
 	debugText_.Print(spherestr.str(), 50, 180, 1.0f);
 
+	//球と平面の交差判定
+	if(false) {
+		Vector3 inter;
+		//当たり判定
+		if (Collision::CheckSphere2Plane(sphere_, plane_, &inter)) {
+			debugText_.Print("HIT", 50, 200, 1.0f);
 
-	Vector3 inter;
-	//当たり判定
-	if (Collision::CheckSphere2Plane(sphere_, plane_,&inter)) {
-		debugText_.Print("HIT", 50, 200, 1.0f);
+			//交点座標を埋め込む
+			spherestr.str("");
+			spherestr.clear();
+			spherestr << "("
+				<< std::fixed << std::setprecision(2)
+				<< inter.x << ","
+				<< inter.y << ","
+				<< inter.z << ")";
 
-		//交点座標を埋め込む
-		spherestr.str("");
-		spherestr.clear();
-		spherestr << "("
-			<< std::fixed << std::setprecision(2)
-			<< inter.x << ","
-			<< inter.y << ","
-			<< inter.z << ")";
+			debugText_.Print(spherestr.str(), 50, 220, 1.0f);
+		}
+	}
 
-		debugText_.Print(spherestr.str(), 50, 220, 1.0f);
+	//球と三角形の衝突判定
+	if(true) {
+		Vector3 inter;
+		//当たり判定
+		if (Collision::CheckSphere2Triangle(sphere_, triangle_, &inter)) {
+			debugText_.Print("HIT", 50, 200, 1.0f);
+
+			//交点座標を埋め込む
+			spherestr.str("");
+			spherestr.clear();
+			spherestr << "("
+				<< std::fixed << std::setprecision(2)
+				<< inter.x << ","
+				<< inter.y << ","
+				<< inter.z << ")";
+
+			debugText_.Print(spherestr.str(), 50, 220, 1.0f);
+		}
 	}
 }
 
