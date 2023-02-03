@@ -1,6 +1,8 @@
 #include "Collision.h"
 #include "MyMath.h"
 
+const float Collision::EPSILON_ = 1.0e-5f;
+
 bool Collision::CheckSphere2Sphere(Vector3 posA, Vector3 posB, float radA, float radB) {
 
 	float distance =
@@ -131,13 +133,12 @@ bool Collision::CheckSphere2Triangle(const Sphere& sphere, const Triangle& trian
 }
 
 bool Collision::CheckRay2Plane(const Ray& ray, const Plane& plane, float* distance, Vector3* inter) {
-	const float epsilon = 1.0e-5f; //誤差吸収用の微小な値
 
 	//面法線とレイの方向ベクトルの内積
 	float d1 = Vector3Dot(plane.normal_, ray.dir_);
 
 	//裏面には当たらない
-	if (d1 > -epsilon) { return false; }
+	if (d1 > -EPSILON_) { return false; }
 
 	//視点と原点の距離(平面の法線方向)
 	//面法線とレイの始点座標の内積
@@ -157,6 +158,49 @@ bool Collision::CheckRay2Plane(const Ray& ray, const Plane& plane, float* distan
 
 	//交点を計算
 	if (inter) { *inter = ray.start_ + t * ray.dir_; }
+
+	return true;
+}
+
+bool Collision::CheckRay2Triangle(const Ray& ray, const Triangle& triangle, float* distance, Vector3* inter) {
+	//三角形が乗っている平面を算出
+	Plane plane;
+	Vector3 interPlace;
+	plane.normal_ = triangle.normal_;
+	plane.distance_ = Vector3Dot(triangle.normal_, triangle.p0_);
+
+	//レイと平面が当たっていなければ、当たっていない
+	if (!CheckRay2Plane(ray, plane, distance, &interPlace)) { return false; }
+
+	//レイと平面が当たっていたので、距離と交点が書き込まれた
+	//レイと平面の交点が三角形の内側にあるかを判定
+	Vector3 m;
+	
+	//辺p0_p1について
+	Vector3 pt_p0 = triangle.p0_ - interPlace;
+	Vector3 p0_p1 = triangle.p1_ - triangle.p0_;
+	m = Vector3Cross(pt_p0, p0_p1);
+	//辺の外側であれば当たっていないので判定を打ち切る
+	if (Vector3Dot(m, triangle.normal_) < -EPSILON_) { return false; }
+
+	//辺p1_p2について
+	Vector3 pt_p1 = triangle.p1_ - interPlace;
+	Vector3 p1_p2 = triangle.p2_ - triangle.p1_;
+	m = Vector3Cross(pt_p1, p1_p2);
+	//辺の外側であれば当たっていないので判定を打ち切る
+	if (Vector3Dot(m, triangle.normal_) < -EPSILON_) { return false; }
+
+	//辺p2_p0について
+	Vector3 pt_p2 = triangle.p2_ - interPlace;
+	Vector3 p2_p0 = triangle.p0_ - triangle.p2_;
+	m = Vector3Cross(pt_p2, p1_p2);
+	//辺の外側であれば当たっていないので判定を打ち切る
+	if (Vector3Dot(m, triangle.normal_) < -EPSILON_) { return false; }
+
+	//内側なので当たっている
+	if (inter) {
+		*inter = interPlace;
+	}
 
 	return true;
 }

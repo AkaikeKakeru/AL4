@@ -14,7 +14,7 @@ public:
 	/// <param name="radB">B半径</param>
 	/// <returns>衝突しているか</returns>
 	static bool CheckSphere2Sphere(
-		Vector3 posA,Vector3 posB,float radA,float radB);
+		Vector3 posA, Vector3 posB, float radA, float radB);
 
 	/// <summary>
 	//球と平面の交差判定
@@ -53,6 +53,23 @@ public:
 	/// <param name="distance">距離(出力)</param>
 	/// <param name="inter">交点(出力用)</param>
 	/// <returns>衝突しているか</returns>
-	static bool CheckRay2Plane(const Ray& ray, const Plane& plane,
+	static bool CheckRay2Plane(
+		const Ray& ray, const Plane& plane,
 		float* distance = nullptr, Vector3* inter = nullptr);
+
+	/// <summary>
+	/// レイと法線付き三角形の衝突判定
+	/// </summary>
+	/// <param name="ray">レイ</param>
+	/// <param name="">三角形</param>
+	/// <param name="distance">距離(出力)</param>
+	/// <param name="inter">交点(出力用)</param>
+	/// <returns>衝突しているか</returns>
+	static bool CheckRay2Triangle(
+		const Ray& ray, const Triangle& triangle,
+		float* distance = nullptr, Vector3* inter = nullptr);
+
+private:
+	//誤差吸収用の微小な値
+	static const float EPSILON_;
 };
