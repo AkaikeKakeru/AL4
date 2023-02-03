@@ -14,9 +14,9 @@ public:
 	inline void SetObject(Object3d* object) {object3d_ = object;}
 
 	virtual void Update() = 0;
-	inline CollisionShapeType GetShapeType() { return shapeType; }
+	inline CollisionShapeType GetShapeType() { return shapeType_; }
 
 protected:
 	Object3d* object3d_ = nullptr;
-	CollisionShapeType shapeType = SHAPE_UNKNOWN;
+	CollisionShapeType shapeType_ = SHAPE_UNKNOWN;
 };
