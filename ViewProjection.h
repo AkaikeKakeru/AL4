@@ -4,7 +4,7 @@
 #include "Matrix4.h"
 #include <d3d12.h>
 #include <wrl.h>
-#include "Degree.h"
+#include "MyMath.h"
 
 //カメラデータ構造体
 struct CameraData {
