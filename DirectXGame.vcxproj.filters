@@ -58,6 +58,9 @@
     <Filter Include="ソース ファイル\Collision">
       <UniqueIdentifier>{d2c8033b-ea6e-48c3-a5cb-cfe4ff894cce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Collision\Collider">
+      <UniqueIdentifier>{06abf1b5-45a3-43e4-886a-af24aad6fa46}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -278,6 +281,9 @@
     </ClInclude>
     <ClInclude Include="CollisionTypes.h">
       <Filter>ヘッダー ファイル\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseCollider.h">
+      <Filter>ヘッダー ファイル\Collision\Collider</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
