@@ -69,4 +69,7 @@ private:
 
 	//当たり判定 三角形
 	Triangle triangle_;
+
+	//当たり判定 レイ
+	Ray ray_;
 };

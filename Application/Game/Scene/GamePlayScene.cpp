@@ -85,10 +85,15 @@ void GamePlayScene::Initialize2d() {
 	plane_.distance_ = 0.0f;
 
 	//三角形の初期値
-	triangle_.p0_ = Vector3(-1.0f, 0, -1.0f);//左手前
-	triangle_.p1_ = Vector3(-1.0f, 0, +1.0f);//左奥
-	triangle_.p2_ = Vector3(+1.0f, 0, -1.0f);//右手前
-	triangle_.normal_ = Vector3(0.0f, 1.0f, 0.0f);//上向き
+	triangle_.p0_ = {-1.0f, 0, -1.0f};//左手前
+	triangle_.p1_ = {-1.0f, 0, +1.0f};//左奥
+	triangle_.p2_ = { +1.0f, 0, -1.0f };//右手前
+	triangle_.normal_ = { 0.0f, 1.0f, 0.0f };//上向き
+
+	//レイの初期値
+	ray_.start_ = { 0,1,0 };//原点のやや上
+	ray_.dir_ = { 0,-1,0 };//下向き
+
 }
 
 void GamePlayScene::Update3d() {
