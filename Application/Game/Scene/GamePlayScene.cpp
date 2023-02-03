@@ -91,7 +91,7 @@ void GamePlayScene::Initialize2d() {
 	triangle_.normal_ = { 0.0f, 1.0f, 0.0f };//上向き
 
 	//レイの初期値
-	ray_.start_ = { 0,1,0 };//原点のやや上
+	ray_.start_ = { 0,2,0 };//原点のやや上
 	ray_.dir_ = { 0,-1,0 };//下向き
 
 }
@@ -280,7 +280,7 @@ void GamePlayScene::Update2d() {
 	}
 
 	//レイと三角形の衝突判定
-	if(true) {
+	if(false) {
 		Vector3 inter;
 		float distance;
 		//当たり判定
@@ -305,6 +305,35 @@ void GamePlayScene::Update2d() {
 				<< distance << ")";
 
 			debugText_.Print(raystr.str(), 50, 300, 1.0f);
+		}
+	}
+
+	//レイと球の衝突判定
+	if(true) {
+		Vector3 inter;
+		float distance;
+		//当たり判定
+		if (Collision::CheckRay2Sphere(ray_, sphere_,&distance, &inter)) {
+			debugText_.Print("HIT", 50, 340, 1.0f);
+
+			//交点座標を埋め込む
+			raystr.str("");
+			raystr.clear();
+			raystr << "inter:("
+				<< std::fixed << std::setprecision(2)
+				<< inter.x << ","
+				<< inter.y << ","
+				<< inter.z << ")";
+
+			debugText_.Print(raystr.str(), 50, 360, 1.0f);
+
+			raystr.str("");
+			raystr.clear();
+			raystr << "distance:("
+				<< std::fixed << std::setprecision(2)
+				<< distance << ")";
+
+			debugText_.Print(raystr.str(), 50, 380, 1.0f);
 		}
 	}
 }
