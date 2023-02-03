@@ -104,3 +104,28 @@ void Collision::ClosessPtPoint2Triangle(const Vector3& point, const Triangle& tr
 	float w = vc * denom;
 	*closest = triangle.p0_ + p0_p1 * v + p0_p2 * w;
 }
+
+bool Collision::CheckSphere2Triangle(const Sphere& sphere, const Triangle& triangle, Vector3* inter) {
+	Vector3 p;
+
+	//球の中心に対する最近接点である三角形上にある点pを見つける
+	ClosessPtPoint2Triangle(sphere.center_, triangle, &p);
+
+	//点pと球の中心の差分ベクトル
+	Vector3 v = p - sphere.center_;
+
+	//距離の二乗を求める
+	//(同じベクトル同士の内積は三平方の定理のルート内部の式と一致する)
+	float vDot = Vector3Dot(v, v);
+
+	//球と三角形の距離が半径以下なら当たっていない
+	if (vDot > sphere.radius_ * sphere.radius_) return false;
+
+	//疑似交点を計算
+	if (inter) {
+		//三角形上の最近接点pを疑似交点とする
+		*inter = p;
+	}
+
+	return true;
+}
