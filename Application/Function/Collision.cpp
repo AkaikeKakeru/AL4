@@ -1,14 +1,14 @@
 #include "Collision.h"
 #include "MyMath.h"
 
-bool Collision::CheckSphereToSphere(Vector3 posA,Vector3 posB,float radA,float radB){
+bool Collision::CheckSphere2Sphere(Vector3 posA, Vector3 posB, float radA, float radB) {
 
 	float distance =
 		(posB.x - posA.x) * (posB.x - posA.x)
 		+ (posB.y - posA.y) * (posB.y - posA.y)
 		+ (posB.z - posA.z) * (posB.z - posA.z);
 
-	float radian = 
+	float radian =
 		(radA + radB) * (radA + radB);
 
 	if (distance <= radian) {
@@ -18,7 +18,7 @@ bool Collision::CheckSphereToSphere(Vector3 posA,Vector3 posB,float radA,float r
 	return false;
 }
 
-bool Collision::CheckSphereToPlane(const Sphere& sphere,
+bool Collision::CheckSphere2Plane(const Sphere& sphere,
 	const Plane& plane, Vector3* inter) {
 	//座標系の原点から球の中心座標への距離
 	float distV = Vector3Dot(sphere.center_, plane.normal_);
@@ -36,4 +36,71 @@ bool Collision::CheckSphereToPlane(const Sphere& sphere,
 	}
 
 	return true;
+}
+
+void Collision::ClosessPtPoint2Triangle(const Vector3& point, const Triangle& triangle, Vector3* closest) {
+	// pointがp0の外側の頂点領域の中にあるかどうかチェック
+	Vector3 p0_p1 = triangle.p1_ - triangle.p0_;
+	Vector3 p0_p2 = triangle.p2_ - triangle.p0_;
+	Vector3 p0_pt = point - triangle.p0_;
+
+	float d1 = Vector3Dot(p0_p1, p0_pt);
+	float d2 = Vector3Dot(p0_p2, p0_pt);
+
+	if (d1 <= 0.0f && d2 <= 0.0f) {
+		// p0が最近傍
+		*closest = triangle.p0_;
+		return;
+	}
+
+	// pointがp1の外側の頂点領域の中にあるかどうかチェック
+	Vector3 p1_pt = point - triangle.p1_;
+
+	float d3 = Vector3Dot(p0_p1, p1_pt);
+	float d4 = Vector3Dot(p0_p2, p1_pt);
+
+	if (d3 >= 0.0f && d4 <= d3) {
+		// p1が最近傍
+		*closest = triangle.p1_;
+		return;
+	}
+
+	// pointがp0_p1の辺領域の中にあるかどうかチェックし、あればpointのp0_p1上に対する射影を返す
+	float vc = d1 * d4 - d3 * d2;
+	if (vc <= 0.0f && d1 >= 0.0f && d3 <= 0.0f) {
+		float v = d1 / (d1 - d3);
+		*closest = triangle.p0_ + v * p0_p1;
+		return;
+	}
+
+	// pointがp2の外側の頂点領域の中にあるかどうかチェック
+	Vector3 p2_pt = point - triangle.p2_;
+
+	float d5 = Vector3Dot(p0_p1, p2_pt);
+	float d6 = Vector3Dot(p0_p2, p2_pt);
+	if (d6 >= 0.0f && d5 <= d6) {
+		*closest = triangle.p2_;
+		return;
+	}
+
+	// pointがp0_p2の辺領域の中にあるかどうかチェックし、あればpointのp0_p2上に対する射影を返す
+	float vb = d5 * d2 - d1 * d6;
+	if (vb <= 0.0f && d2 >= 0.0f && d6 <= 0.0f) {
+		float w = d2 / (d2 - d6);
+		*closest = triangle.p0_ + w * p0_p2;
+		return;
+	}
+
+	// pointがp1_p2の辺領域の中にあるかどうかチェックし、あればpointのp1_p2上に対する射影を返す
+	float va = d3 * d6 - d5 * d4;
+	if (va <= 0.0f && (d4 - d3) >= 0.0f && (d5 - d6) >= 0.0f) {
+		float w = (d4 - d3) / ((d4 - d3) + (d5 - d6));
+		*closest = triangle.p1_ + w * (triangle.p2_ - triangle.p1_);
+		return;
+	}
+
+	float denom = 1.0f / (va + vb + vc);
+	float v = vb * denom;
+	float w = vc * denom;
+	*closest = triangle.p0_ + p0_p1 * v + p0_p2 * w;
 }
