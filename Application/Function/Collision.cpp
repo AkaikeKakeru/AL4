@@ -1,7 +1,7 @@
 #include "Collision.h"
 #include "MyMath.h"
 
-bool Collision::Collision_SphereToSphere(Vector3 posA,Vector3 posB,float radA,float radB){
+bool Collision::CheckSphereToSphere(Vector3 posA,Vector3 posB,float radA,float radB){
 
 	float distance =
 		(posB.x - posA.x) * (posB.x - posA.x)
