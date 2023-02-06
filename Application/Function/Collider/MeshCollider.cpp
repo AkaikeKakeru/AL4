@@ -45,3 +45,7 @@ void MeshCollider::ConstructTriangle(Model* model) {
 		start += (int)triangleNum;
 	}
 }
+void MeshCollider::Update() {
+	//ワールド行列の逆行列を計算
+	invMatWorld_ = Matrix4Inverse(GetObject3d()->GetMatWorld());
+}
