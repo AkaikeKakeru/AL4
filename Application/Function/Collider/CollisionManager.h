@@ -28,8 +28,12 @@ public: //メンバ関数
 	void CheckSphere2Sphere(BaseCollider* colA,BaseCollider* colB);
 
 	//レイキャスト
-	bool RayCast(const Ray& ray, RaycastHit* hitInfo = nullptr,
+	bool Raycast(const Ray& ray, RaycastHit* hitInfo = nullptr,
 		float maxDistance = D3D12_FLOAT32_MAX);
+
+	//レイキャスト(属性指定版)
+	bool Raycast(const Ray& ray, unsigned short attribute,
+		RaycastHit* hitInfo = nullptr, float maxDistance = D3D12_FLOAT32_MAX);
 
 private:
 	CollisionManager() = default;
