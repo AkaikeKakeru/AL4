@@ -85,5 +85,5 @@ bool CollisionManager::RayCast(const Ray& ray, RaycastHit* hitInfo,
         hitInfo->object_ = hitInfo->collider_->GetObject3d();
     }
 
-    return false;
+    return result;
 }
