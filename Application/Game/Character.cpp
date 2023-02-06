@@ -37,6 +37,8 @@ bool Character::Initialize() {
 	//半径分だけ足元から浮いた位置を球の中心にする
 	SetCollider(new SphereCollider({ 0,radius,0 },radius));
 
+	debugText_.Initialize(0);
+
 	return true;
 }
 
@@ -68,4 +70,14 @@ void Character::Update() {
 	}
 
 	Object3d::Update();
+}
+
+void Character::OnCollision(const CollisionInfo& info) {
+	debugText_.Print(
+		"Collision detected.",
+		10,300);
+}
+
+void Character::DrawUi() {
+	debugText_.DrawAll();
 }

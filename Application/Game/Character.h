@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Object3d.h"
+#include "DebugText.h"
 
 class Character :
 	public Object3d {
@@ -16,4 +17,8 @@ public:
 
 	//衝突時のコールバック
 	void OnCollision(const CollisionInfo& info) override;
+
+	void DrawUi();
+
+	DebugText debugText_;
 };
