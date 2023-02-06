@@ -1,6 +1,9 @@
 #pragma once
-
 #include <forward_list>
+#include "CollisionPrimitive.h"
+#include "RaycastHit.h"
+
+#include <d3d12.h>
 
 class BaseCollider;
 
@@ -23,6 +26,10 @@ public: //メンバ関数
 
 	//球と球
 	void CheckSphere2Sphere(BaseCollider* colA,BaseCollider* colB);
+
+	//レイキャスト
+	bool RayCast(const Ray& ray, RaycastHit* hitInfo = nullptr,
+		float maxDistance = D3D12_FLOAT32_MAX);
 
 private:
 	CollisionManager() = default;
