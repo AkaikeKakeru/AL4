@@ -100,6 +100,7 @@
     <ClCompile Include="Application\Function\Collider\CollisionManager.cpp" />
     <ClCompile Include="Application\Function\Collider\CollisionPrimitive.cpp" />
     <ClCompile Include="Application\Function\Collider\SphereCollider.cpp" />
+    <ClCompile Include="Application\Game\Character.cpp" />
     <ClCompile Include="Application\Game\GameMain.cpp" />
     <ClCompile Include="Application\Game\Scene\GamePlayScene.cpp" />
     <ClCompile Include="Application\Game\Scene\Manager\BaseScene.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="Application\Function\Collider\CollisionManager.h" />
     <ClInclude Include="Application\Function\Collider\SphereCollider.h" />
     <ClInclude Include="Application\Function\SafeDelete.h" />
+    <ClInclude Include="Application\Game\Character.h" />
     <ClInclude Include="Application\Game\GameMain.h" />
     <ClInclude Include="Application\Game\Scene\GamePlayScene.h" />
     <ClInclude Include="Application\Game\Scene\Manager\AbstractSceneFactory.h" />

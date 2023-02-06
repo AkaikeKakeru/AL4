@@ -159,6 +159,9 @@
     <ClCompile Include="Application\Function\Collider\CollisionManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Application\Game\Character.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\BasicPixelShader.hlsl">
@@ -299,6 +302,9 @@
     </ClInclude>
     <ClInclude Include="Application\Function\Collider\CollisionManager.h">
       <Filter>ヘッダー ファイル\Collision\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game\Character.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
