@@ -54,6 +54,7 @@ void GamePlayScene::Initialize3d() {
 
 	robotObj_ = Character::Create(robotModel_);
 	robotObj_->SetScale({ 1, 1, 1 });
+	robotObj_->SetPosition({ 0,0,0 });
 	robotObj_->SetCamera(camera_);
 	robotObj_->SetCollider(new SphereCollider);
 	robotObj_->Update();
@@ -107,9 +108,8 @@ void GamePlayScene::Initialize2d() {
 	triangle_.normal_ = { 0.0f, 1.0f, 0.0f };//上向き
 
 	//レイの初期値
-	ray_.start_ = { 0,2,0 };//原点のやや上
-	ray_.dir_ = { 0,-1,0 };//下向き
-
+	ray_.start_ = { 10.0f,0.5f,0 };
+	ray_.dir_ = { -1,0,0 };
 }
 
 void GamePlayScene::Update3d() {
@@ -210,7 +210,7 @@ void GamePlayScene::Update2d() {
 	debugText_.Print(spherestr.str(), 50, 20, 1.0f);
 
 	//レイ移動
-	if(true) {
+	if(false) {
 		Vector3 moveZ = { 0,0,0.01f };
 		Vector3 moveX = { 0.01f,0,0 };
 
@@ -356,6 +356,26 @@ void GamePlayScene::Update2d() {
 
 			debugText_.Print(raystr.str(), 50, 380, 1.0f);
 		}
+	}
+
+	//レイキャスト
+	RaycastHit raycastHit_;
+
+
+	if (collisionManager_->RayCast(ray_, &raycastHit_)) {
+
+		debugText_.Print("Raycask Hit.", 20, 330);
+
+		//交点座標を埋め込む
+		raystr.str("");
+		raystr.clear();
+		raystr << "inter:("
+			<< std::fixed << std::setprecision(2)
+			<< raycastHit_.inter_.x << ","
+			<< raycastHit_.inter_.y << ","
+			<< raycastHit_.inter_.z << ")";
+
+		debugText_.Print(raystr.str(), 20, 360, 1.0f);
 	}
 }
 
