@@ -147,10 +147,10 @@
     <ClCompile Include="Application\Game\GameMain.cpp">
       <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Function\Collision.cpp">
+    <ClCompile Include="Application\Function\Collider\Collision.cpp">
       <Filter>ソース ファイル\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Function\CollisionPrimitive.cpp">
+    <ClCompile Include="Application\Function\Collider\CollisionPrimitive.cpp">
       <Filter>ソース ファイル\Collision</Filter>
     </ClCompile>
   </ItemGroup>
@@ -270,23 +270,26 @@
     <ClInclude Include="Application\Game\Scene\GamePlayScene.h">
       <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Application\Function\Collider\Collision.h">
+      <Filter>ヘッダー ファイル\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Function\Collider\CollisionPrimitive.h">
+      <Filter>ヘッダー ファイル\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Function\Collider\CollisionTypes.h">
+      <Filter>ヘッダー ファイル\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Function\Collider\BaseCollider.h">
+      <Filter>ヘッダー ファイル\Collision\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Function\Collider\CollisionInfo.h">
+      <Filter>ヘッダー ファイル\Collision\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Function\Collider\SphereCollider.h">
+      <Filter>ヘッダー ファイル\Collision\Collider</Filter>
+    </ClInclude>
     <ClInclude Include="Application\Function\SafeDelete.h">
       <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Function\Collision.h">
-      <Filter>ヘッダー ファイル\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Function\CollisionPrimitive.h">
-      <Filter>ヘッダー ファイル\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Function\CollisionTypes.h">
-      <Filter>ヘッダー ファイル\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Function\BaseCollider.h">
-      <Filter>ヘッダー ファイル\Collision\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Function\CollisionInfo.h">
-      <Filter>ヘッダー ファイル\Collision\Collider</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -59,7 +59,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)DirectXTex;$(ProjectDir)Application\Base;$(ProjectDir)Application\Game;$(ProjectDir)Application\Game\Scene;$(ProjectDir)Application\Game\Scene\Manager;$(ProjectDir)Application\Math;$(ProjectDir)Application\Function;$(ProjectDir)Engine\2d;$(ProjectDir)Engine\3d\Object;$(ProjectDir)Engine\3d\Camera;$(ProjectDir)Engine\3d\Light;$(ProjectDir)Engine\ConstBuffer;$(ProjectDir)Engine\Debugger;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DirectXTex;$(ProjectDir)Application\Base;$(ProjectDir)Application\Game;$(ProjectDir)Application\Game\Scene;$(ProjectDir)Application\Game\Scene\Manager;$(ProjectDir)Application\Math;$(ProjectDir)Application\Function\Collider;$(ProjectDir)Engine\2d;$(ProjectDir)Engine\3d\Object;$(ProjectDir)Engine\3d\Camera;$(ProjectDir)Engine\3d\Light;$(ProjectDir)Engine\ConstBuffer;$(ProjectDir)Engine\Debugger;$(ProjectDir)Application\Function;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -77,7 +77,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)DirectXTex;$(ProjectDir)Application\Base;$(ProjectDir)Application\Game;$(ProjectDir)Application\Game\Scene;$(ProjectDir)Application\Game\Scene\Manager;$(ProjectDir)Application\Math;$(ProjectDir)Application\Function;$(ProjectDir)Engine\2d;$(ProjectDir)Engine\3d\Object;$(ProjectDir)Engine\3d\Camera;$(ProjectDir)Engine\3d\Light;$(ProjectDir)Engine\ConstBuffer;$(ProjectDir)Engine\Debugger;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DirectXTex;$(ProjectDir)Application\Base;$(ProjectDir)Application\Game;$(ProjectDir)Application\Game\Scene;$(ProjectDir)Application\Game\Scene\Manager;$(ProjectDir)Application\Math;$(ProjectDir)Application\Function\Collider;$(ProjectDir)Engine\2d;$(ProjectDir)Engine\3d\Object;$(ProjectDir)Engine\3d\Camera;$(ProjectDir)Engine\3d\Light;$(ProjectDir)Engine\ConstBuffer;$(ProjectDir)Engine\Debugger;$(ProjectDir)Application\Function;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -97,7 +97,7 @@
     <ClCompile Include="Application\Base\Framework.cpp" />
     <ClCompile Include="Application\Base\Input.cpp" />
     <ClCompile Include="Application\Base\WinApp.cpp" />
-    <ClCompile Include="Application\Function\CollisionPrimitive.cpp" />
+    <ClCompile Include="Application\Function\Collider\CollisionPrimitive.cpp" />
     <ClCompile Include="Application\Game\GameMain.cpp" />
     <ClCompile Include="Application\Game\Scene\GamePlayScene.cpp" />
     <ClCompile Include="Application\Game\Scene\Manager\BaseScene.cpp" />
@@ -108,7 +108,7 @@
     <ClCompile Include="Application\Math\Vector2.cpp" />
     <ClCompile Include="Application\Math\Vector3.cpp" />
     <ClCompile Include="Application\Math\Vector4.cpp" />
-    <ClCompile Include="Application\Function\Collision.cpp" />
+    <ClCompile Include="Application\Function\Collider\Collision.cpp" />
     <ClCompile Include="Engine\2d\DrawBasis.cpp" />
     <ClCompile Include="Engine\2d\Sprite.cpp" />
     <ClCompile Include="Engine\3d\Camera\Camera.cpp" />
@@ -168,6 +168,7 @@
     <ClInclude Include="Application\Base\Framework.h" />
     <ClInclude Include="Application\Base\Input.h" />
     <ClInclude Include="Application\Base\WinApp.h" />
+    <ClInclude Include="Application\Function\Collider\SphereCollider.h" />
     <ClInclude Include="Application\Function\SafeDelete.h" />
     <ClInclude Include="Application\Game\GameMain.h" />
     <ClInclude Include="Application\Game\Scene\GamePlayScene.h" />
@@ -180,11 +181,11 @@
     <ClInclude Include="Application\Math\Vector2.h" />
     <ClInclude Include="Application\Math\Vector3.h" />
     <ClInclude Include="Application\Math\Vector4.h" />
-    <ClInclude Include="Application\Function\Collision.h" />
-    <ClInclude Include="Application\Function\CollisionPrimitive.h" />
-    <ClInclude Include="Application\Function\BaseCollider.h" />
-    <ClInclude Include="Application\Function\CollisionInfo.h" />
-    <ClInclude Include="Application\Function\CollisionTypes.h" />
+    <ClInclude Include="Application\Function\Collider\Collision.h" />
+    <ClInclude Include="Application\Function\Collider\CollisionPrimitive.h" />
+    <ClInclude Include="Application\Function\Collider\BaseCollider.h" />
+    <ClInclude Include="Application\Function\Collider\CollisionInfo.h" />
+    <ClInclude Include="Application\Function\Collider\CollisionTypes.h" />
     <ClInclude Include="Engine\2d\DrawBasis.h" />
     <ClInclude Include="Engine\2d\Sprite.h" />
     <ClInclude Include="Engine\3d\Camera\Camera.h" />
