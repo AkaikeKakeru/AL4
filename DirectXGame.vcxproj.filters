@@ -279,13 +279,13 @@
     <ClInclude Include="Application\Function\CollisionPrimitive.h">
       <Filter>ヘッダー ファイル\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionTypes.h">
+    <ClInclude Include="Application\Function\CollisionTypes.h">
       <Filter>ヘッダー ファイル\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="BaseCollider.h">
+    <ClInclude Include="Application\Function\BaseCollider.h">
       <Filter>ヘッダー ファイル\Collision\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionInfo.h">
+    <ClInclude Include="Application\Function\CollisionInfo.h">
       <Filter>ヘッダー ファイル\Collision\Collider</Filter>
     </ClInclude>
   </ItemGroup>

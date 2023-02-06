@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CollisionTypes.h"
+#include "CollisionInfo.h"
 #include "Object3d.h"
 
 class BaseCollider {
@@ -15,6 +16,10 @@ public:
 
 	virtual void Update() = 0;
 	inline CollisionShapeType GetShapeType() { return shapeType_; }
+
+	inline void OnCollision(const CollisionInfo& info) {
+		object3d_->OnCollision(info);
+	}
 
 protected:
 	Object3d* object3d_ = nullptr;
