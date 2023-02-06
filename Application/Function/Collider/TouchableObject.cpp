@@ -1,6 +1,7 @@
 #include "TouchableObject.h"
 #include <cassert>
 #include "MeshCollider.h"
+#include "CollisionAttribute.h"
 
 TouchableObject* TouchableObject::Create(Model* model) {
 	//オブジェクトのインスタンスを生成
@@ -29,6 +30,7 @@ bool TouchableObject::Initialize(Model* model) {
 	MeshCollider* collider = new MeshCollider;
 	SetCollider(collider);
 	collider->ConstructTriangle(model);
+	collider->SetAttribute(COLLISION_ATTR_LANDSHAPE);
 
 	return true;
 }
