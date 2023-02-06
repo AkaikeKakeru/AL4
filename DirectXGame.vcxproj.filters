@@ -162,6 +162,9 @@
     <ClCompile Include="Application\Game\Character.cpp">
       <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Application\Function\Collider\MeshCollider.cpp">
+      <Filter>ソース ファイル\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\BasicPixelShader.hlsl">
@@ -307,6 +310,9 @@
       <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
     <ClInclude Include="Application\Function\Collider\RaycastHit.h">
+      <Filter>ヘッダー ファイル\Collision\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Function\Collider\MeshCollider.h">
       <Filter>ヘッダー ファイル\Collision\Collider</Filter>
     </ClInclude>
   </ItemGroup>

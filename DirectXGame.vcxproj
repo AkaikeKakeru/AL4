@@ -99,6 +99,7 @@
     <ClCompile Include="Application\Base\WinApp.cpp" />
     <ClCompile Include="Application\Function\Collider\CollisionManager.cpp" />
     <ClCompile Include="Application\Function\Collider\CollisionPrimitive.cpp" />
+    <ClCompile Include="Application\Function\Collider\MeshCollider.cpp" />
     <ClCompile Include="Application\Function\Collider\SphereCollider.cpp" />
     <ClCompile Include="Application\Game\Character.cpp" />
     <ClCompile Include="Application\Game\GameMain.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Application\Base\Input.h" />
     <ClInclude Include="Application\Base\WinApp.h" />
     <ClInclude Include="Application\Function\Collider\CollisionManager.h" />
+    <ClInclude Include="Application\Function\Collider\MeshCollider.h" />
     <ClInclude Include="Application\Function\Collider\RaycastHit.h" />
     <ClInclude Include="Application\Function\Collider\SphereCollider.h" />
     <ClInclude Include="Application\Function\SafeDelete.h" />
