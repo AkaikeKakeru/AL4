@@ -45,7 +45,40 @@ void MeshCollider::ConstructTriangle(Model* model) {
 		start += (int)triangleNum;
 	}
 }
+
 void MeshCollider::Update() {
 	//ワールド行列の逆行列を計算
 	invMatWorld_ = Matrix4Inverse(GetObject3d()->GetMatWorld());
 }
+
+bool MeshCollider::CheckCollisionSphere(const Sphere& sphere, Vector3* inter) {
+	//オブジェクトのローカル座標系での球を得る
+	Sphere localSphere;
+	localSphere.center_ = Vector3Transform(sphere.center_, invMatWorld_);
+	localSphere.radius_ *= Vector3Length({
+		invMatWorld_.m[0][0],
+		invMatWorld_.m[0][1],
+		invMatWorld_.m[0][2]
+		});
+
+	//ローカル座標系で交差をチェック
+	std::vector<Triangle>::const_iterator it = triangles_.cbegin();
+
+	for (; it != triangles_.cend(); ++it) {
+		const Triangle& triangle = *it;
+
+		//球と三角形の衝突判定
+		if (Collision::CheckSphere2Triangle(localSphere, triangle, inter)) {
+			if (inter) {
+				const Matrix4& matWorld = GetObject3d()->GetMatWorld();
+				//ワールド座標系での交点を得る
+				*inter = Vector3Transform(*inter, matWorld);
+			}
+
+			return true;
+		}
+	}
+
+	return false;
+}
+
