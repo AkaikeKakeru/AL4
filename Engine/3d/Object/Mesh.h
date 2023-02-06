@@ -45,6 +45,10 @@ public: //メンバ関数
 	const D3D12_INDEX_BUFFER_VIEW& GetIBView() { return ibView_; }
 	//頂点データの数を取得
 	inline size_t GetVertexCount() { return vertices_.size(); }
+	//頂点配列を取得
+	inline const std::vector<VertexPosNormalUv>& GetVertices() { return vertices_; }
+	//インデックス配列取得
+	inline const std::vector<unsigned short>& GetIndices() { return indices_; }
 
 	/// 名前をセット
 	void SetName(const std::string& name) { name_ = name; };
