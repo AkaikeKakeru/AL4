@@ -1,4 +1,5 @@
 #include "Character.h"
+#include "SphereCollider.h"
 #include <cassert>
 
 Character* Character::Create(Model* model) {
@@ -20,4 +21,18 @@ Character* Character::Create(Model* model) {
 	}
 
 	return instance;
+}
+
+bool Character::Initialize() {
+	if (!Object3d::Initialize()) {
+		return false;
+	}
+
+	//コライダーの追加
+	float radius = 0.6f;
+
+	//半径分だけ足元から浮いた位置を球の中心にする
+	SetCollider(new SphereCollider({ 0,radius,0 },radius));
+
+	return true;
 }
