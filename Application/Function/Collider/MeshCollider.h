@@ -28,5 +28,5 @@ public:
 private:
 	std::vector<Triangle> triangles_;
 	//ワールド行列の逆行列
-	Matrix4 invMatWorld_;
+	Matrix4 invMatWorld_{};
 };
