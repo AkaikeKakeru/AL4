@@ -53,8 +53,8 @@ private:
 	/// <summary>
 	/// オブジェクト
 	/// </summary>
-	Character* planeObj_ = nullptr;
-	Model* planeModel_ = nullptr;
+	Character* robotObj_ = nullptr;
+	Model* robotModel_ = nullptr;
 
 	Object3d* skydomeObj_ = nullptr;
 	Model* skydomeModel_ = nullptr;

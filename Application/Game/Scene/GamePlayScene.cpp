@@ -43,8 +43,8 @@ void GamePlayScene::Initialize3d() {
 	//カメラ生成
 	camera_ = new Camera();
 
-	planeModel_ = new Model();
-	planeModel_ = Model::LoadFromOBJ("plane", false);
+	robotModel_ = new Model();
+	robotModel_ = Model::LoadFromOBJ("robot", false);
 
 	skydomeModel_ = new Model();
 	skydomeModel_ = Model::LoadFromOBJ("skydome", true);
@@ -52,11 +52,11 @@ void GamePlayScene::Initialize3d() {
 	sphereModel_ = new Model();
 	sphereModel_ = Model::LoadFromOBJ("sphere", true);
 
-	planeObj_ = Character::Create(planeModel_);
-	planeObj_->SetScale({ 1, 1, 1 });
-	planeObj_->SetCamera(camera_);
-	planeObj_->SetCollider(new SphereCollider);
-	planeObj_->Update();
+	robotObj_ = Character::Create(robotModel_);
+	robotObj_->SetScale({ 1, 1, 1 });
+	robotObj_->SetCamera(camera_);
+	robotObj_->SetCollider(new SphereCollider);
+	robotObj_->Update();
 
 	sphereObj_ = Object3d::Create();
 	sphereObj_->SetModel(sphereModel_);
@@ -162,7 +162,7 @@ void GamePlayScene::Update3d() {
 	skydomeObj_->Update();
 
 	sphereObj_->Update();
-	planeObj_->Update();
+	robotObj_->Update();
 
 	//全ての衝突判定をチェック
 	collisionManager_->CheckAllCollision();
@@ -362,13 +362,13 @@ void GamePlayScene::Update2d() {
 void GamePlayScene::Draw3d() {
 	skydomeObj_->Draw();
 	sphereObj_->Draw();
-	planeObj_->Draw();
+	robotObj_->Draw();
 }
 
 void GamePlayScene::Draw2d() {
 	sprite_->Draw();
 	debugText_.DrawAll();
-	planeObj_->DrawUi();
+	robotObj_->DrawUi();
 }
 
 Vector3 GamePlayScene::CreateRotationVector(Vector3 axisAngle, float angleRadian) {
@@ -379,11 +379,11 @@ Vector3 GamePlayScene::CreateRotationVector(Vector3 axisAngle, float angleRadian
 }
 
 void GamePlayScene::Finalize() {
-	SafeDelete(planeObj_);
+	SafeDelete(robotObj_);
 	SafeDelete(skydomeObj_);
 	SafeDelete(sphereObj_);
 
-	SafeDelete(planeModel_);
+	SafeDelete(robotModel_);
 	SafeDelete(skydomeModel_);
 	SafeDelete(sphereModel_);
 
