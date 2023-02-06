@@ -1,6 +1,9 @@
 #include "Character.h"
+#include "Input.h"
 #include "SphereCollider.h"
 #include <cassert>
+
+
 
 Character* Character::Create(Model* model) {
 	//3Dオブジェクトのインスタンス生成
@@ -35,4 +38,34 @@ bool Character::Initialize() {
 	SetCollider(new SphereCollider({ 0,radius,0 },radius));
 
 	return true;
+}
+
+void Character::Update() {
+	Input* input = Input::GetInstance();
+	//旋回スピード
+	float rotaSpeed = 2.0f;
+	//移動ベクトル
+	Vector3 move = { 0,0,0.1f };
+	
+	//A,Dで旋回
+	if (input->PressKey(DIK_A)) {
+		worldTransform_.rotation_.y -= rotaSpeed;
+	}
+	else if (input->PressKey(DIK_D)) {
+		worldTransform_.rotation_.y += rotaSpeed;
+	}
+
+	Matrix4 matRot =
+		Matrix4RotationY(ConvertToRadian(worldTransform_.rotation_.y));
+	move = Vector3Transform(move, matRot);
+
+	//向いている方向に移動
+	if (input->PressKey(DIK_S)) {
+		worldTransform_.position_ -= move;
+	}
+	else if (input->PressKey(DIK_W)) {
+		worldTransform_.position_ += move;
+	}
+
+	Object3d::Update();
 }
