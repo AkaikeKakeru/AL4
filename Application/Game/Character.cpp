@@ -97,6 +97,17 @@ void Character::Update() {
 	}
 
 	Object3d::Update();
+
+	//球コライダーを取得
+	SphereCollider* sphereCollider = dynamic_cast<SphereCollider*>(collider_);
+	assert(sphereCollider);
+
+	//球の上端から球の下端までのレイキャスト用レイを準備
+	Ray ray;
+	ray.start_ = sphereCollider->center_;
+	ray.start_.y += sphereCollider->GetRadius();
+	ray.dir_ = { 0,-1,0 };
+	RaycastHit raycastHit;
 }
 
 void Character::OnCollision(const CollisionInfo& info) {
