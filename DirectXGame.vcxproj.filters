@@ -321,5 +321,8 @@
     <ClInclude Include="Application\Function\Collider\TouchableObject.h">
       <Filter>ヘッダー ファイル\Collision\Collider</Filter>
     </ClInclude>
+    <ClInclude Include="Application\Function\Collider\CollisionAttribute.h">
+      <Filter>ヘッダー ファイル\Collision</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
