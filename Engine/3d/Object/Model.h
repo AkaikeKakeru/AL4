@@ -37,15 +37,15 @@ private://メンバ関数
 	void InitializeDescriptorHeap();
 
 
-	//メッシュコンテナ取得
-	inline const std::vector<Mesh*>& GetMeshes() { return meshes_; }
-
 public://メンバ関数
 	   // デストラクタ
 	~Model();
 
 	//描画
 	void Draw(ID3D12GraphicsCommandList* cmdList);
+
+	//メッシュコンテナ取得
+	inline const std::vector<Mesh*>& GetMeshes() { return meshes_; }
 
 private:
 	//デバイス
