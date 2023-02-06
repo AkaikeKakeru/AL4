@@ -59,7 +59,7 @@ void Character::Update() {
 
 	Matrix4 matRot =
 		Matrix4RotationY(worldTransform_.rotation_.y);
-	move = Vector3Normalize(Vector3Transform(move, matRot));
+	move = Vector3Normalize(Vector3Transform(move, matRot)) / 8;
 
 	//向いている方向に移動
 	if (input->PressKey(DIK_S)) {
