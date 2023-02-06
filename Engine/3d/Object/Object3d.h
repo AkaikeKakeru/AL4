@@ -95,6 +95,9 @@ public: // メンバ関数
 	//ワールド行列の取得
 	const Matrix4& GetMatWorld() { return worldTransform_.matWorld_; }
 
+	//モデル取得
+	inline Model* GetModel() { return model_; }
+
 
 	/// 座標の設定
 	void SetPosition(const Vector3& position) { this->worldTransform_.position_ = position; }
