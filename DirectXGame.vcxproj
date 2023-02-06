@@ -101,6 +101,7 @@
     <ClCompile Include="Application\Function\Collider\CollisionPrimitive.cpp" />
     <ClCompile Include="Application\Function\Collider\MeshCollider.cpp" />
     <ClCompile Include="Application\Function\Collider\SphereCollider.cpp" />
+    <ClCompile Include="Application\Function\Collider\TouchableObject.cpp" />
     <ClCompile Include="Application\Game\Character.cpp" />
     <ClCompile Include="Application\Game\GameMain.cpp" />
     <ClCompile Include="Application\Game\Scene\GamePlayScene.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Application\Function\Collider\MeshCollider.h" />
     <ClInclude Include="Application\Function\Collider\RaycastHit.h" />
     <ClInclude Include="Application\Function\Collider\SphereCollider.h" />
+    <ClInclude Include="Application\Function\Collider\TouchableObject.h" />
     <ClInclude Include="Application\Function\SafeDelete.h" />
     <ClInclude Include="Application\Game\Character.h" />
     <ClInclude Include="Application\Game\GameMain.h" />

@@ -165,6 +165,9 @@
     <ClCompile Include="Application\Function\Collider\MeshCollider.cpp">
       <Filter>ソース ファイル\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="Application\Function\Collider\TouchableObject.cpp">
+      <Filter>ソース ファイル\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\BasicPixelShader.hlsl">
@@ -313,6 +316,9 @@
       <Filter>ヘッダー ファイル\Collision\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Application\Function\Collider\MeshCollider.h">
+      <Filter>ヘッダー ファイル\Collision\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Function\Collider\TouchableObject.h">
       <Filter>ヘッダー ファイル\Collision\Collider</Filter>
     </ClInclude>
   </ItemGroup>
