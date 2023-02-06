@@ -45,7 +45,7 @@ bool Character::Initialize() {
 void Character::Update() {
 	Input* input = Input::GetInstance();
 	//旋回スピード
-	float rotaSpeed = 2.0f;
+	float rotaSpeed = ConvertToRadian(2.0f);
 	//移動ベクトル
 	Vector3 move = { 0,0,0.1f };
 	
@@ -58,8 +58,8 @@ void Character::Update() {
 	}
 
 	Matrix4 matRot =
-		Matrix4RotationY(ConvertToRadian(worldTransform_.rotation_.y));
-	move = Vector3Transform(move, matRot);
+		Matrix4RotationY(worldTransform_.rotation_.y);
+	move = Vector3Normalize(Vector3Transform(move, matRot));
 
 	//向いている方向に移動
 	if (input->PressKey(DIK_S)) {
