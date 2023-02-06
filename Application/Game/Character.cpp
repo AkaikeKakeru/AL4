@@ -96,7 +96,10 @@ void Character::Update() {
 		fallV_ = { 0,jumpVYFist,0 };
 	}
 
+	//オブジェクトの更新
 	Object3d::Update();
+
+	///着地処理
 
 	//球コライダーを取得
 	SphereCollider* sphereCollider = dynamic_cast<SphereCollider*>(collider_);
@@ -108,6 +111,26 @@ void Character::Update() {
 	ray.start_.y += sphereCollider->GetRadius();
 	ray.dir_ = { 0,-1,0 };
 	RaycastHit raycastHit;
+
+	//接地状態
+	if (onGround_) {
+		//スムーズに坂を下るための吸着距離
+		const float adsDistance = 0.2f;
+		//接地を維持
+		if (CollisionManager::GetInstance()->Raycast(
+			ray, COLLISION_ATTR_LANDSHAPE,
+			&raycastHit, sphereCollider->GetRadius() * 2.0f + adsDistance)) {
+			onGround_ = true;
+			worldTransform_.position_.y -= (raycastHit.distance_ - sphereCollider->GetRadius() * 2.0f);
+			//オブジェクトの更新
+			Object3d::Update();
+		}
+		//地面がないので落下
+		else {
+			onGround_ = false;
+			fallV_ = {};
+		}
+	}
 }
 
 void Character::OnCollision(const CollisionInfo& info) {
