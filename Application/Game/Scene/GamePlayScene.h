@@ -17,6 +17,9 @@
 #include <memory>
 #include <List>
 
+class CollisionManager;
+class Character;
+
 class GamePlayScene : public BaseScene {
 public:
 	void Initialize() override;
@@ -50,16 +53,23 @@ private:
 	/// <summary>
 	/// オブジェクト
 	/// </summary>
-	Object3d* planeObj_ = nullptr;
+	Character* planeObj_ = nullptr;
 	Model* planeModel_ = nullptr;
 
 	Object3d* skydomeObj_ = nullptr;
 	Model* skydomeModel_ = nullptr;
 
+	Object3d* sphereObj_ = nullptr;
+	Model* sphereModel_ = nullptr;
+
 	/// <summary>
 	/// スプライト
 	/// </summary>
 	Sprite* sprite_ = new Sprite();
+
+	/// <summary>
+	/// コリダー
+	/// </summary>
 
 	//当たり判定 球
 	Sphere sphere_;
@@ -72,4 +82,7 @@ private:
 
 	//当たり判定 レイ
 	Ray ray_;
+
+	//衝突マネージャー
+	CollisionManager* collisionManager_ = nullptr;
 };

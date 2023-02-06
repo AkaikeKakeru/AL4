@@ -2,7 +2,12 @@
 #include "SafeDelete.h"
 #include "Quaternion.h"
 
+#include "Character.h"
+
 #include "Collision.h"
+#include "CollisionManager.h"
+#include "SphereCollider.h"
+
 #include <sstream>
 #include <iomanip>
 
@@ -33,6 +38,8 @@ void GamePlayScene::Draw() {
 }
 
 void GamePlayScene::Initialize3d() {
+	collisionManager_ = CollisionManager::GetInstance();
+
 	//カメラ生成
 	camera_ = new Camera();
 
@@ -42,14 +49,23 @@ void GamePlayScene::Initialize3d() {
 	skydomeModel_ = new Model();
 	skydomeModel_ = Model::LoadFromOBJ("skydome", true);
 
-	planeObj_ = new Object3d();
-	planeObj_ = Object3d::Create();
-	planeObj_->SetModel(planeModel_);
+	sphereModel_ = new Model();
+	sphereModel_ = Model::LoadFromOBJ("sphere", true);
+
+	planeObj_ = Character::Create(planeModel_);
 	planeObj_->SetScale({ 1, 1, 1 });
 	planeObj_->SetCamera(camera_);
+	planeObj_->SetCollider(new SphereCollider);
 	planeObj_->Update();
 
-	skydomeObj_ = new Object3d();
+	sphereObj_ = Object3d::Create();
+	sphereObj_->SetModel(sphereModel_);
+	sphereObj_->SetScale({ 1, 1, 1 });
+	sphereObj_->SetPosition({ -5,0,0 });
+	sphereObj_->SetCamera(camera_);
+	sphereObj_->SetCollider(new SphereCollider);
+	sphereObj_->Update();
+
 	skydomeObj_ = Object3d::Create();
 	skydomeObj_->SetModel(skydomeModel_);
 	skydomeObj_->SetScale({ 100, 100, 100 });
@@ -131,20 +147,25 @@ void GamePlayScene::Update3d() {
 	//}
 
 	// カメラ移動
-	if (input_->PressKey(DIK_W) ||
-		input_->PressKey(DIK_S) ||
-		input_->PressKey(DIK_D) ||
-		input_->PressKey(DIK_A)) {
-		if (input_->PressKey(DIK_W)) { camera_->MoveVector({ 0.0f,+1.0f,0.0f }); }
-		else if (input_->PressKey(DIK_S)) { camera_->MoveVector({ 0.0f,-1.0f,0.0f }); }
-		if (input_->PressKey(DIK_D)) { camera_->MoveVector({ +1.0f,0.0f,0.0f }); }
-		else if (input_->PressKey(DIK_A)) { camera_->MoveVector({ -1.0f,0.0f,0.0f }); }
-	}
+	//if (input_->PressKey(DIK_W) ||
+	//	input_->PressKey(DIK_S) ||
+	//	input_->PressKey(DIK_D) ||
+	//	input_->PressKey(DIK_A)) {
+	//	if (input_->PressKey(DIK_W)) { camera_->MoveVector({ 0.0f,+1.0f,0.0f }); }
+	//	else if (input_->PressKey(DIK_S)) { camera_->MoveVector({ 0.0f,-1.0f,0.0f }); }
+	//	if (input_->PressKey(DIK_D)) { camera_->MoveVector({ +1.0f,0.0f,0.0f }); }
+	//	else if (input_->PressKey(DIK_A)) { camera_->MoveVector({ -1.0f,0.0f,0.0f }); }
+	//}
 
 	camera_->Update();
 	light_->Update();
 	skydomeObj_->Update();
+
+	sphereObj_->Update();
 	planeObj_->Update();
+
+	//全ての衝突判定をチェック
+	collisionManager_->CheckAllCollision();
 }
 
 void GamePlayScene::Update2d() {
@@ -340,12 +361,14 @@ void GamePlayScene::Update2d() {
 
 void GamePlayScene::Draw3d() {
 	skydomeObj_->Draw();
+	sphereObj_->Draw();
 	planeObj_->Draw();
 }
 
 void GamePlayScene::Draw2d() {
 	sprite_->Draw();
 	debugText_.DrawAll();
+	planeObj_->DrawUi();
 }
 
 Vector3 GamePlayScene::CreateRotationVector(Vector3 axisAngle, float angleRadian) {
@@ -358,8 +381,12 @@ Vector3 GamePlayScene::CreateRotationVector(Vector3 axisAngle, float angleRadian
 void GamePlayScene::Finalize() {
 	SafeDelete(planeObj_);
 	SafeDelete(skydomeObj_);
+	SafeDelete(sphereObj_);
+
 	SafeDelete(planeModel_);
 	SafeDelete(skydomeModel_);
+	SafeDelete(sphereModel_);
+
 	SafeDelete(sprite_);
 
 	SafeDelete(light_);
