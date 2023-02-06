@@ -183,6 +183,7 @@
     <ClInclude Include="Application\Function\Collision.h" />
     <ClInclude Include="Application\Function\CollisionPrimitive.h" />
     <ClInclude Include="BaseCollider.h" />
+    <ClInclude Include="CollisionInfo.h" />
     <ClInclude Include="CollisionTypes.h" />
     <ClInclude Include="Engine\2d\DrawBasis.h" />
     <ClInclude Include="Engine\2d\Sprite.h" />

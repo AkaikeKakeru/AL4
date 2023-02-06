@@ -285,5 +285,8 @@
     <ClInclude Include="BaseCollider.h">
       <Filter>ヘッダー ファイル\Collision\Collider</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionInfo.h">
+      <Filter>ヘッダー ファイル\Collision\Collider</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
