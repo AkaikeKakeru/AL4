@@ -172,6 +172,7 @@
     <ClInclude Include="Application\Base\Input.h" />
     <ClInclude Include="Application\Base\WinApp.h" />
     <ClInclude Include="Application\Function\Collider\CollisionManager.h" />
+    <ClInclude Include="Application\Function\Collider\RaycastHit.h" />
     <ClInclude Include="Application\Function\Collider\SphereCollider.h" />
     <ClInclude Include="Application\Function\SafeDelete.h" />
     <ClInclude Include="Application\Game\Character.h" />

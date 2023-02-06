@@ -306,5 +306,8 @@
     <ClInclude Include="Application\Game\Character.h">
       <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Application\Function\Collider\RaycastHit.h">
+      <Filter>ヘッダー ファイル\Collision\Collider</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
