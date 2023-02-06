@@ -10,6 +10,8 @@
 #include "WinApp.h"
 #include "Model.h"
 
+#include "BaseCollider.h"
+
 #pragma comment(lib, "d3dcompiler.lib")
 
 using namespace DirectX;
@@ -227,7 +229,16 @@ void Object3d::InitializeGraphicsPipeline() {
 	assert(SUCCEEDED(result));
 }
 
+Object3d::~Object3d() {
+	if (collider_) {
+		delete collider_;
+	}
+}
+
 bool Object3d::Initialize() {
+	//クラス名の文字列を取得
+	name_ = typeid(*this).name();
+
 	worldTransform_.Initialize();
 	return true;
 }
@@ -239,6 +250,11 @@ void Object3d::Update() {
 
 	//定数バッファへ転送
 	TransferMatrixWorld();
+
+	//当たり判定更新
+	if (collider_) {
+		collider_->Update();
+	}
 }
 
 void Object3d::Draw() {
@@ -268,4 +284,9 @@ void Object3d::TransferMatrixWorld() {
 	worldTransform_.constMap_->viewproj_ = matViewProjection;
 	worldTransform_.constMap_->world_ = worldTransform_.matWorld_;
 	worldTransform_.constMap_->cameraPos_ = cameraPos;
+}
+
+void Object3d::SetCollider(BaseCollider* collider) { 
+	collider->SetObject(this);
+	collider_ = collider;
 }

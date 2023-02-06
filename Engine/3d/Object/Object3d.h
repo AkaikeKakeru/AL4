@@ -9,11 +9,13 @@
 #include "Vector4.h"
 
 #include "Model.h"
-
 #include "WorldTransform.h"
-
 #include "Camera.h"
 #include "Light.h"
+
+#include "CollisionInfo.h"
+
+class BaseCollider;
 
 /// <summary>
 /// 3Dオブジェクト
@@ -69,11 +71,14 @@ private:// 静的メンバ関数
 	static void InitializeGraphicsPipeline();
 
 public: // メンバ関数
-	bool Initialize();
+	Object3d() = default;
+	virtual ~Object3d();
+
+	virtual bool Initialize();
 	// 毎フレーム処理
-	void Update();
+	virtual void Update();
 	// 描画
-	void Draw();
+	virtual void Draw();
 
 	//転送
 	void TransferMatrixWorld();
@@ -86,6 +91,10 @@ public: // メンバ関数
 
 	//回転の取得
 	const Vector3& GetRotation() const { return worldTransform_.rotation_; }
+
+	//ワールド行列の取得
+	const Matrix4& GetMatWorld() { return worldTransform_.matWorld_; }
+
 
 	/// 座標の設定
 	void SetPosition(const Vector3& position) { this->worldTransform_.position_ = position; }
@@ -105,7 +114,14 @@ public: // メンバ関数
 	//カメラセット
 	void SetCamera(Camera* camera) { camera_ = camera; }
 
-private: // メンバ変数
+	//コライダーのセット
+	void SetCollider(BaseCollider* collider);
+
+
+	//衝突時のコールバック
+	virtual void OnCollision(const CollisionInfo& info){}
+
+protected: // メンバ変数
 	//ワールドトランスフォーム
 	WorldTransform worldTransform_;
 
@@ -114,4 +130,10 @@ private: // メンバ変数
 
 	//カメラ
 	Camera* camera_ = nullptr;
+
+	//クラス名(デバッグ用)
+	const char* name_ = nullptr;
+
+	//コライダー
+	BaseCollider* collider_ = nullptr;
 };
