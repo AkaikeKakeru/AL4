@@ -4,7 +4,7 @@
 const float Collision::EPSILON_ = 1.0e-5f;
 
 bool Collision::CheckSphere2Sphere(const Sphere& sphereA,
-	const Sphere& sphereB, Vector3* inter = nullptr) {
+	const Sphere& sphereB, Vector3* inter) {
 
 	float distance =
 		(sphereB.center_.x - sphereA.center_.x) * (sphereB.center_.x - sphereA.center_.x)
