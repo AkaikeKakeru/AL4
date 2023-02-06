@@ -373,7 +373,7 @@ void GamePlayScene::Update2d() {
 	RaycastHit raycastHit_;
 
 
-	if (collisionManager_->RayCast(ray_, &raycastHit_)) {
+	if (collisionManager_->Raycast(ray_, &raycastHit_)) {
 
 		debugText_.Print("Raycask Hit.", 20, 330);
 
