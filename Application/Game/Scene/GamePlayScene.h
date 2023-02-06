@@ -19,6 +19,7 @@
 
 class CollisionManager;
 class Character;
+class TouchableObject;
 
 class GamePlayScene : public BaseScene {
 public:
@@ -58,6 +59,9 @@ private:
 
 	Object3d* skydomeObj_ = nullptr;
 	Model* skydomeModel_ = nullptr;
+
+	TouchableObject* groundObj_ = nullptr;
+	Model* groundModel_ = nullptr;
 
 	Object3d* sphereObj_ = nullptr;
 	Model* sphereModel_ = nullptr;

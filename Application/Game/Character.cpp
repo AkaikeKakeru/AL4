@@ -3,7 +3,8 @@
 #include "SphereCollider.h"
 #include <cassert>
 
-
+#include <sstream>
+#include <iomanip>
 
 Character* Character::Create(Model* model) {
 	//3Dオブジェクトのインスタンス生成
@@ -48,7 +49,18 @@ void Character::Update() {
 	float rotaSpeed = ConvertToRadian(2.0f);
 	//移動ベクトル
 	Vector3 move = { 0,0,0.1f };
+	//上昇下降スピード
+	float upDown = 0.2f;
 	
+	//上昇下降
+	if (input->PressKey(DIK_Q)) {
+		worldTransform_.position_.y -= upDown;
+	}
+	else if (input->PressKey(DIK_E)) {
+		worldTransform_.position_.y += upDown;
+	}
+
+
 	//A,Dで旋回
 	if (input->PressKey(DIK_A)) {
 		worldTransform_.rotation_.y -= rotaSpeed;
@@ -76,6 +88,17 @@ void Character::OnCollision(const CollisionInfo& info) {
 	debugText_.Print(
 		"Collision detected.",
 		10,300);
+
+	std::ostringstream interstr;
+
+		//交点座標を埋め込む
+		interstr << "inter:("
+			<< std::fixed << std::setprecision(2)
+			<< info.inter_.x << ","
+			<< info.inter_.y << ","
+			<< info.inter_.z << ")";
+
+		debugText_.Print(interstr.str(), 50, 400, 1.0f);
 }
 
 void Character::DrawUi() {

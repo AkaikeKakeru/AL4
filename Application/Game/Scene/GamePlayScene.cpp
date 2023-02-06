@@ -8,6 +8,9 @@
 #include "CollisionManager.h"
 #include "SphereCollider.h"
 
+#include "MeshCollider.h"
+#include "TouchableObject.h"
+
 #include <sstream>
 #include <iomanip>
 
@@ -52,6 +55,9 @@ void GamePlayScene::Initialize3d() {
 	sphereModel_ = new Model();
 	sphereModel_ = Model::LoadFromOBJ("sphere", true);
 
+	groundModel_ = new Model();
+	groundModel_ = Model::LoadFromOBJ("ground", true);
+
 	robotObj_ = Character::Create(robotModel_);
 	robotObj_->SetScale({ 1, 1, 1 });
 	robotObj_->SetPosition({ 0,0,0 });
@@ -62,7 +68,7 @@ void GamePlayScene::Initialize3d() {
 	sphereObj_ = Object3d::Create();
 	sphereObj_->SetModel(sphereModel_);
 	sphereObj_->SetScale({ 1, 1, 1 });
-	sphereObj_->SetPosition({ -5,0,0 });
+	sphereObj_->SetPosition({ -20,0,0 });
 	sphereObj_->SetCamera(camera_);
 	sphereObj_->SetCollider(new SphereCollider);
 	sphereObj_->Update();
@@ -72,6 +78,10 @@ void GamePlayScene::Initialize3d() {
 	skydomeObj_->SetScale({ 100, 100, 100 });
 	skydomeObj_->SetCamera(camera_);
 	skydomeObj_->Update();
+
+	groundObj_ = TouchableObject::Create(groundModel_);
+	groundObj_->SetCamera(camera_);
+	groundObj_->Update();
 
 	//ライト生成
 	light_ = new Light();
@@ -109,7 +119,7 @@ void GamePlayScene::Initialize2d() {
 
 	//レイの初期値
 	ray_.start_ = { 10.0f,0.5f,0 };
-	ray_.dir_ = { -1,0,0 };
+	ray_.dir_ = { 0,-1,0 };
 }
 
 void GamePlayScene::Update3d() {
@@ -160,6 +170,7 @@ void GamePlayScene::Update3d() {
 	camera_->Update();
 	light_->Update();
 	skydomeObj_->Update();
+	groundObj_->Update();
 
 	sphereObj_->Update();
 	robotObj_->Update();
@@ -381,6 +392,7 @@ void GamePlayScene::Update2d() {
 
 void GamePlayScene::Draw3d() {
 	skydomeObj_->Draw();
+	groundObj_->Draw();
 	sphereObj_->Draw();
 	robotObj_->Draw();
 }
@@ -402,10 +414,12 @@ void GamePlayScene::Finalize() {
 	SafeDelete(robotObj_);
 	SafeDelete(skydomeObj_);
 	SafeDelete(sphereObj_);
+	SafeDelete(groundObj_);
 
 	SafeDelete(robotModel_);
 	SafeDelete(skydomeModel_);
 	SafeDelete(sphereModel_);
+	SafeDelete(groundModel_);
 
 	SafeDelete(sprite_);
 

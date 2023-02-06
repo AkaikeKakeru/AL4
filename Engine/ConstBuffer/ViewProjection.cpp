@@ -10,7 +10,7 @@ void ViewProjection::Initialize() {
 	// 射影行列
 	matProjection_ = Matrix4Identity();
 
-	eye_ = { 0, 0, -20.0f };
+	eye_ = { 0, 5, -20.0f };
 	target_ = { 0, 0, 0 };
 	up_ = { 0, 1, 0 };
 
