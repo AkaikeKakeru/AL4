@@ -21,4 +21,10 @@ public:
 	void DrawUi();
 
 	DebugText debugText_;
+
+private:
+	//接地フラグ
+	bool onGround_ = true;
+	//落下ベクトル
+	Vector3 fallV_;
 };
