@@ -54,17 +54,6 @@ void Character::Update() {
 	float rotaSpeed = ConvertToRadian(2.0f);
 	//移動ベクトル
 	Vector3 move = { 0,0,0.1f };
-	//上昇下降スピード
-	float upDown = 0.2f;
-	
-	//上昇下降
-	if (input->PressKey(DIK_Q)) {
-		worldTransform_.position_.y -= upDown;
-	}
-	else if (input->PressKey(DIK_E)) {
-		worldTransform_.position_.y += upDown;
-	}
-
 
 	//A,Dで旋回
 	if (input->PressKey(DIK_A)) {
@@ -84,6 +73,27 @@ void Character::Update() {
 	}
 	else if (input->PressKey(DIK_W)) {
 		worldTransform_.position_ += move;
+	}
+
+	//落下処理
+	if (!onGround_) {
+		//下向き加速度
+		const float fallAcc = -0.01f;
+		const float fallVYMin = -0.05f;
+
+		//加速
+		fallV_.y = max(fallV_.y + fallAcc, fallVYMin);
+
+		//移動
+		worldTransform_.position_.x += fallV_.x;
+		worldTransform_.position_.y += fallV_.y;
+		worldTransform_.position_.z += fallV_.z;
+	}
+	//ジャンプ操作
+	else if (input->TriggerKey(DIK_SPACE)) {
+		onGround_ = false;
+		const float jumpVYFist = 0.2f;//ジャンプ時上向き初速
+		fallV_ = { 0,jumpVYFist,0 };
 	}
 
 	Object3d::Update();
