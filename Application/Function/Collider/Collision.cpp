@@ -3,15 +3,16 @@
 
 const float Collision::EPSILON_ = 1.0e-5f;
 
-bool Collision::CheckSphere2Sphere(Vector3 posA, Vector3 posB, float radA, float radB) {
+bool Collision::CheckSphere2Sphere(const Sphere& sphereA,
+	const Sphere& sphereB, Vector3* inter = nullptr) {
 
 	float distance =
-		(posB.x - posA.x) * (posB.x - posA.x)
-		+ (posB.y - posA.y) * (posB.y - posA.y)
-		+ (posB.z - posA.z) * (posB.z - posA.z);
+		(sphereB.center_.x - sphereA.center_.x) * (sphereB.center_.x - sphereA.center_.x)
+		+ (sphereB.center_.y - sphereA.center_.y) * (sphereB.center_.y - sphereA.center_.y)
+		+ (sphereB.center_.z - sphereA.center_.z) * (sphereB.center_.z - sphereA.center_.z);
 
 	float radian =
-		(radA + radB) * (radA + radB);
+		(sphereA.radius_ + sphereB.radius_) * (sphereA.radius_ + sphereB.radius_);
 
 	if (distance <= radian) {
 		return true;

@@ -8,13 +8,12 @@ public:
 	/// <summary>
 	///球と球の衝突判定
 	/// </summary>
-	/// <param name="posA">A位置</param>
-	/// <param name="posB">B位置</param>
-	/// <param name="radA">A半径</param>
-	/// <param name="radB">B半径</param>
+	/// <param name="sphereA">球A</param>
+	/// <param name="sphereB">球B</param>
+	/// <param name="inter">交点</param>
 	/// <returns>衝突しているか</returns>
 	static bool CheckSphere2Sphere(
-		Vector3 posA, Vector3 posB, float radA, float radB);
+		const Sphere& sphereA, const Sphere& sphereB, Vector3* inter = nullptr);
 
 	/// <summary>
 	//球と平面の交差判定
