@@ -14,7 +14,11 @@ public:
 
 	void Update() override;
 
+	inline float GetRadius() { return radius_; }
+	inline const Vector3& GetOffSet() { return offset_; }
+
 	inline void SetRadius(float radius) { radius_ = radius; }
+	inline void SetOffset(const Vector3& offset) { offset_ = offset; }
 
 private:
 	//オブジェクト中心からのオフセット
