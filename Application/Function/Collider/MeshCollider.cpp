@@ -61,7 +61,7 @@ bool MeshCollider::CheckCollisionSphere(const Sphere& sphere, Vector3* inter) {
 		invMatWorld_.m[0][2]
 		});
 
-	//ローカル座標系で交差をチェック
+	//ローカル座標系で衝突をチェック
 	std::vector<Triangle>::const_iterator it = triangles_.cbegin();
 
 	for (; it != triangles_.cend(); ++it) {
@@ -73,6 +73,43 @@ bool MeshCollider::CheckCollisionSphere(const Sphere& sphere, Vector3* inter) {
 				const Matrix4& matWorld = GetObject3d()->GetMatWorld();
 				//ワールド座標系での交点を得る
 				*inter = Vector3Transform(*inter, matWorld);
+			}
+
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool MeshCollider::CheckCollisionRay(const Ray& ray, float* distance, Vector3* inter) {
+	//オブジェクトのローカル座標系での球を得る
+	Ray localRay;
+	localRay.start_ = Vector3Transform(ray.start_, invMatWorld_);
+	localRay.dir_ = Vector3Transform(ray.dir_, invMatWorld_);
+
+	//ローカル座標系で衝突をチェック
+	std::vector<Triangle>::const_iterator it = triangles_.cbegin();
+
+	for (; it != triangles_.cend(); ++it) {
+		const Triangle& triangle = *it;
+
+		Vector3 tempInter;
+
+		//レイと三角形の衝突判定
+		if (Collision::CheckRay2Triangle(localRay, triangle, nullptr, &tempInter)) {
+			const Matrix4& matWorld = GetObject3d()->GetMatWorld();
+
+			//ワールド座標系での交点を得る
+			tempInter = Vector3Transform(tempInter, matWorld);
+
+			if (distance) {
+				//交点とレイ始点の距離を計算
+				Vector3 sub = tempInter - ray.start_;
+				*distance = Vector3Dot(sub, ray.dir_);
+			}
+			if (inter) {
+				*inter = tempInter;
 			}
 
 			return true;
