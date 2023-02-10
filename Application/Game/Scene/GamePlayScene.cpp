@@ -65,19 +65,19 @@ void GamePlayScene::Initialize3d() {
 	robotObj_->SetCollider(new SphereCollider);
 	robotObj_->Update();
 
-	sphereObj_ = Object3d::Create();
-	sphereObj_->SetModel(sphereModel_);
-	sphereObj_->SetScale({ 1, 1, 1 });
-	sphereObj_->SetPosition({ -20,0,0 });
-	sphereObj_->SetCamera(camera_);
-	sphereObj_->SetCollider(new SphereCollider);
-	sphereObj_->Update();
+	//sphereObj_ = Object3d::Create();
+	//sphereObj_->SetModel(sphereModel_);
+	//sphereObj_->SetScale({ 1, 1, 1 });
+	//sphereObj_->SetPosition({ -20,0,0 });
+	//sphereObj_->SetCamera(camera_);
+	//sphereObj_->SetCollider(new SphereCollider);
+	//sphereObj_->Update();
 
-	skydomeObj_ = Object3d::Create();
-	skydomeObj_->SetModel(skydomeModel_);
-	skydomeObj_->SetScale({ 100, 100, 100 });
-	skydomeObj_->SetCamera(camera_);
-	skydomeObj_->Update();
+	//skydomeObj_ = Object3d::Create();
+	//skydomeObj_->SetModel(skydomeModel_);
+	//skydomeObj_->SetScale({ 100, 100, 100 });
+	//skydomeObj_->SetCamera(camera_);
+	//skydomeObj_->Update();
 
 	groundObj_ = TouchableObject::Create(groundModel_);
 	groundObj_->SetCamera(camera_);
@@ -169,14 +169,14 @@ void GamePlayScene::Update3d() {
 
 	camera_->Update();
 	light_->Update();
-	skydomeObj_->Update();
+	//skydomeObj_->Update();
 	groundObj_->Update();
 
-	sphereObj_->Update();
+	//sphereObj_->Update();
 	robotObj_->Update();
 
 	//全ての衝突判定をチェック
-	collisionManager_->CheckAllCollision();
+	//collisionManager_->CheckAllCollision();
 }
 
 void GamePlayScene::Update2d() {
@@ -191,21 +191,21 @@ void GamePlayScene::Update2d() {
 	sprite_->Update();
 
 	//球移動
-	if(false) {
+	if(true) {
 		Vector3 moveY = { 0,0.01f,0 };
 		Vector3 moveX = { 0.01f,0,0 };
 
-		if (input_->PressKey(DIK_UP)) {
+		if (input_->PressKey(DIK_1)) {
 			sphere_.center_ += moveY;
 		}
-		else if (input_->PressKey(DIK_DOWN)) {
+		else if (input_->PressKey(DIK_2)) {
 			sphere_.center_ -= moveY;
 		}
 
-		if (input_->PressKey(DIK_RIGHT)) {
+		if (input_->PressKey(DIK_3)) {
 			sphere_.center_ += moveX;
 		}
-		else if (input_->PressKey(DIK_LEFT)) {
+		else if (input_->PressKey(DIK_4)) {
 			sphere_.center_ -= moveX;
 		}
 	}
@@ -221,21 +221,21 @@ void GamePlayScene::Update2d() {
 	debugText_.Print(spherestr.str(), 50, 20, 1.0f);
 
 	//レイ移動
-	if(false) {
+	if(true) {
 		Vector3 moveZ = { 0,0,0.01f };
 		Vector3 moveX = { 0.01f,0,0 };
 
-		if (input_->PressKey(DIK_UP)) {
+		if (input_->PressKey(DIK_6)) {
 			ray_.start_ += moveZ;
 		}
-		else if (input_->PressKey(DIK_DOWN)) {
+		else if (input_->PressKey(DIK_7)) {
 			ray_.start_ -= moveZ;
 		}
 
-		if (input_->PressKey(DIK_RIGHT)) {
+		if (input_->PressKey(DIK_8)) {
 			ray_.start_ += moveX;
 		}
-		else if (input_->PressKey(DIK_LEFT)) {
+		else if (input_->PressKey(DIK_9)) {
 			ray_.start_ -= moveX;
 		}
 	}
@@ -251,7 +251,7 @@ void GamePlayScene::Update2d() {
 	debugText_.Print(raystr.str(), 50, 180, 1.0f);
 
 	//球と平面の交差判定
-	if(false) {
+	if(true) {
 		Vector3 inter;
 		//当たり判定
 		if (Collision::CheckSphere2Plane(sphere_, plane_, &inter)) {
@@ -271,7 +271,7 @@ void GamePlayScene::Update2d() {
 	}
 
 	//球と三角形の衝突判定
-	if(false) {
+	if(true) {
 		Vector3 inter;
 		//当たり判定
 		if (Collision::CheckSphere2Triangle(sphere_, triangle_, &inter)) {
@@ -291,7 +291,7 @@ void GamePlayScene::Update2d() {
 	}
 
 	//レイと平面の衝突判定
-	if(false) {
+	if(true) {
 		Vector3 inter;
 		float distance;
 		//当たり判定
@@ -312,7 +312,7 @@ void GamePlayScene::Update2d() {
 	}
 
 	//レイと三角形の衝突判定
-	if(false) {
+	if(true) {
 		Vector3 inter;
 		float distance;
 		//当たり判定
@@ -391,9 +391,9 @@ void GamePlayScene::Update2d() {
 }
 
 void GamePlayScene::Draw3d() {
-	skydomeObj_->Draw();
+	//skydomeObj_->Draw();
 	groundObj_->Draw();
-	sphereObj_->Draw();
+	//sphereObj_->Draw();
 	robotObj_->Draw();
 }
 
@@ -412,13 +412,13 @@ Vector3 GamePlayScene::CreateRotationVector(Vector3 axisAngle, float angleRadian
 
 void GamePlayScene::Finalize() {
 	SafeDelete(robotObj_);
-	SafeDelete(skydomeObj_);
-	SafeDelete(sphereObj_);
+	//SafeDelete(skydomeObj_);
+	//SafeDelete(sphereObj_);
 	SafeDelete(groundObj_);
 
 	SafeDelete(robotModel_);
-	SafeDelete(skydomeModel_);
-	SafeDelete(sphereModel_);
+	//SafeDelete(skydomeModel_);
+	//SafeDelete(sphereModel_);
 	SafeDelete(groundModel_);
 
 	SafeDelete(sprite_);
