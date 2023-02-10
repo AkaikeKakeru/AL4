@@ -108,12 +108,14 @@
     <ClCompile Include="Application\Game\Scene\Manager\BaseScene.cpp" />
     <ClCompile Include="Application\Game\Scene\Manager\SceneFactory.cpp" />
     <ClCompile Include="Application\Game\Scene\Manager\SceneManager.cpp" />
+    <ClCompile Include="Application\Game\Triangel.cpp" />
     <ClCompile Include="Application\Math\Matrix4.cpp" />
     <ClCompile Include="Application\Math\Quaternion.cpp" />
     <ClCompile Include="Application\Math\Vector2.cpp" />
     <ClCompile Include="Application\Math\Vector3.cpp" />
     <ClCompile Include="Application\Math\Vector4.cpp" />
     <ClCompile Include="Application\Function\Collider\Collision.cpp" />
+    <ClCompile Include="Application\Game\Ball.cpp" />
     <ClCompile Include="Engine\2d\DrawBasis.cpp" />
     <ClCompile Include="Engine\2d\Sprite.cpp" />
     <ClCompile Include="Engine\3d\Camera\Camera.cpp" />
@@ -186,6 +188,7 @@
     <ClInclude Include="Application\Game\Scene\Manager\BaseScene.h" />
     <ClInclude Include="Application\Game\Scene\Manager\SceneFactory.h" />
     <ClInclude Include="Application\Game\Scene\Manager\SceneManager.h" />
+    <ClInclude Include="Application\Game\Triangle.h" />
     <ClInclude Include="Application\Math\Matrix4.h" />
     <ClInclude Include="Application\Math\Quaternion.h" />
     <ClInclude Include="Application\Math\Vector2.h" />
@@ -196,6 +199,7 @@
     <ClInclude Include="Application\Function\Collider\BaseCollider.h" />
     <ClInclude Include="Application\Function\Collider\CollisionInfo.h" />
     <ClInclude Include="Application\Function\Collider\CollisionTypes.h" />
+    <ClInclude Include="Application\Game\Ball.h" />
     <ClInclude Include="Engine\2d\DrawBasis.h" />
     <ClInclude Include="Engine\2d\Sprite.h" />
     <ClInclude Include="Engine\3d\Camera\Camera.h" />

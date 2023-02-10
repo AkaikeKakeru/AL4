@@ -19,6 +19,7 @@
 
 class CollisionManager;
 class Character;
+class Ball;
 class TouchableObject;
 
 class GamePlayScene : public BaseScene {
@@ -63,7 +64,8 @@ private:
 	TouchableObject* groundObj_ = nullptr;
 	Model* groundModel_ = nullptr;
 
-	Object3d* sphereObj_ = nullptr;
+	//Object3d* sphereObj_ = nullptr;
+	Ball* sphereObj_ = nullptr;
 	Model* sphereModel_ = nullptr;
 
 
@@ -76,17 +78,7 @@ private:
 	/// コリダー
 	/// </summary>
 
-	//当たり判定 球
-	Sphere sphere_;
-
-	//当たり判定 平面
-	Plane plane_;
-
-	//当たり判定 三角形
-	Triangle triangle_;
-
-	//当たり判定 レイ
-	Ray ray_;
+	float spherePos_[3] = { 0,0,0 };
 
 	//衝突マネージャー
 	CollisionManager* collisionManager_ = nullptr;

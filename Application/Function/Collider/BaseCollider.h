@@ -6,6 +6,9 @@
 
 class BaseCollider {
 public:
+	friend class CollisionManager;
+
+public:
 	BaseCollider() = default;
 
 	//仮想デストラクタ
@@ -21,7 +24,22 @@ public:
 		object3d_->OnCollision(info);
 	}
 
+	inline void SetAttribute(unsigned short attribute) {
+		attribute_ = attribute;
+	}
+
+	inline void AddAttribute(unsigned short attribute) {
+		attribute_ |= attribute;
+	}
+
+	inline void RemoveAttribute(unsigned short attribute) {
+		attribute_ &= !attribute;
+	}
+
 protected:
 	Object3d* object3d_ = nullptr;
 	CollisionShapeType shapeType_ = SHAPE_UNKNOWN;
+
+	//衝突属性
+	unsigned short attribute_ = 0b1111111111111111;
 };

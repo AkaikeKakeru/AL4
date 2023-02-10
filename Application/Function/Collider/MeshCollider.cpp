@@ -34,9 +34,21 @@ void MeshCollider::ConstructTriangle(Model* model) {
 			int idx2 = indices[i * 3 + 2];
 
 			//三角形の3頂点の座標を代入
-			tri.p0_ = { vertices[idx0].pos.x,vertices[idx0].pos.y,vertices[idx0].pos.z};
-			tri.p1_ = { vertices[idx1].pos.x,vertices[idx1].pos.y,vertices[idx1].pos.z};
-			tri.p2_ = { vertices[idx2].pos.x,vertices[idx2].pos.y,vertices[idx2].pos.z};
+			tri.p0_ = {
+				vertices[idx0].pos.x,
+				vertices[idx0].pos.y,
+				vertices[idx0].pos.z
+			};
+			tri.p1_ = {
+				vertices[idx1].pos.x,
+				vertices[idx1].pos.y,
+				vertices[idx1].pos.z
+			};
+			tri.p2_ = { 
+				vertices[idx2].pos.x,
+				vertices[idx2].pos.y,
+				vertices[idx2].pos.z
+			};
 		
 			//3頂点から法線を計算
 			tri.ComputeNormal();
