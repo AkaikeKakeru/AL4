@@ -28,9 +28,9 @@ bool TouchableObject::Initialize(Model* model) {
 
 	//コライダーの追加
 	MeshCollider* collider = new MeshCollider;
+	SetCollider(collider);
 	collider->SetAttribute(COLLISION_ATTR_LANDSHAPE);
 	collider->ConstructTriangle(model);
-	SetCollider(collider);
 
 	return true;
 }

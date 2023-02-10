@@ -41,7 +41,6 @@ bool Character::Initialize() {
 
 	//半径分だけ足元から浮いた位置を球の中心にする
 	SetCollider(new SphereCollider({ 0,radius,0 },radius));
-
 	collider_->SetAttribute(COLLISION_ATTR_ALLIES);
 
 	debugText_.Initialize(0);
@@ -79,7 +78,7 @@ void Character::Update() {
 	if (!onGround_) {
 		//下向き加速度
 		const float fallAcc = -0.01f;
-		const float fallVYMin = -0.05f;
+		const float fallVYMin = -0.5f;
 
 		//加速
 		fallV_.y = max(fallV_.y + fallAcc, fallVYMin);
@@ -115,39 +114,50 @@ void Character::Update() {
 	//接地状態
 	if (onGround_) {
 		//スムーズに坂を下るための吸着距離
-		const float adsDistance = 0.2f;
-		//接地を維持
-		if (CollisionManager::GetInstance()->Raycast(
-			ray, COLLISION_ATTR_LANDSHAPE,
-			&raycastHit, sphereCollider->GetRadius() * 2.0f + adsDistance)) {
+		//const float adsDistance = 0.2f;
+		////接地を維持
+		//if (CollisionManager::GetInstance()->Raycast(
+		//	ray, COLLISION_ATTR_LANDSHAPE,
+		//	&raycastHit, sphereCollider->GetRadius() * 2.0f + adsDistance)) {
+		//	onGround_ = true;
+		//	worldTransform_.position_.y -= (raycastHit.distance_ - sphereCollider->GetRadius() * 2.0f);
+		//	//オブジェクトの更新
+		//	Object3d::Update();
+		//}
+		////地面がないので落下
+		//else {
+		//	onGround_ = false;
+		//	fallV_ = {};
+		//}
+	}
+	//落下状態
+	else if (fallV_.y <= 0.0f) {
+		if (CollisionManager::GetInstance()->Raycast(ray, COLLISION_ATTR_LANDSHAPE,
+			&raycastHit, sphereCollider->GetRadius() * 2.0f)) {
+			//着地
 			onGround_ = true;
 			worldTransform_.position_.y -= (raycastHit.distance_ - sphereCollider->GetRadius() * 2.0f);
 			//オブジェクトの更新
 			Object3d::Update();
 		}
-		//地面がないので落下
-		else {
-			onGround_ = false;
-			fallV_ = {};
-		}
 	}
 }
 
 void Character::OnCollision(const CollisionInfo& info) {
-	debugText_.Print(
-		"Collision detected.",
-		10,300);
+	//debugText_.Print(
+	//	"Collision detected.",
+	//	10,300);
 
-	std::ostringstream interstr;
+	//std::ostringstream interstr;
 
-		//交点座標を埋め込む
-		interstr << "inter:("
-			<< std::fixed << std::setprecision(2)
-			<< info.inter_.x << ","
-			<< info.inter_.y << ","
-			<< info.inter_.z << ")";
+	//	//交点座標を埋め込む
+	//	interstr << "inter:("
+	//		<< std::fixed << std::setprecision(2)
+	//		<< info.inter_.x << ","
+	//		<< info.inter_.y << ","
+	//		<< info.inter_.z << ")";
 
-		debugText_.Print(interstr.str(), 50, 400, 1.0f);
+	//	debugText_.Print(interstr.str(), 50, 400, 1.0f);
 }
 
 void Character::DrawUi() {
