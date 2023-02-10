@@ -63,10 +63,10 @@ void Ball::Update() {
 
 	//A,Dで左右
 	if (input->PressKey(DIK_LEFT)) {
-		worldTransform_.position_.y -= speed;
+		worldTransform_.position_.x -= speed;
 	}
 	else if (input->PressKey(DIK_RIGHT)) {
-		worldTransform_.position_.y += speed;
+		worldTransform_.position_.x += speed;
 	}
 
 	Object3d::Update();

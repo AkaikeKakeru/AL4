@@ -55,19 +55,17 @@ private:
 	/// <summary>
 	/// オブジェクト
 	/// </summary>
-	Character* robotObj_ = nullptr;
-	Model* robotModel_ = nullptr;
-
 	Object3d* skydomeObj_ = nullptr;
 	Model* skydomeModel_ = nullptr;
 
 	TouchableObject* groundObj_ = nullptr;
 	Model* groundModel_ = nullptr;
 
-	//Object3d* sphereObj_ = nullptr;
-	Ball* sphereObj_ = nullptr;
+	Character* sphereObj_ = nullptr;
 	Model* sphereModel_ = nullptr;
 
+	TouchableObject* triangleObj_ = nullptr;
+	Model* triangleModel_ = nullptr;
 
 	/// <summary>
 	/// スプライト

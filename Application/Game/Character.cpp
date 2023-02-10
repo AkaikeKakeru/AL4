@@ -3,6 +3,8 @@
 #include "SphereCollider.h"
 #include <cassert>
 
+#include "Collision.h"
+
 #include <sstream>
 #include <iomanip>
 
@@ -50,35 +52,23 @@ void Character::Update() {
 	//移動ベクトル
 	Vector3 move = { 0,0,0.1f };
 	//上昇下降スピード
-	float upDown = 0.2f;
-	
+	float speed = 0.2f;
+
 	//上昇下降
-	if (input->PressKey(DIK_Q)) {
-		worldTransform_.position_.y -= upDown;
+	if (input->PressKey(DIK_UP)) {
+		worldTransform_.position_.y += speed;
 	}
-	else if (input->PressKey(DIK_E)) {
-		worldTransform_.position_.y += upDown;
-	}
-
-
-	//A,Dで旋回
-	if (input->PressKey(DIK_A)) {
-		worldTransform_.rotation_.y -= rotaSpeed;
-	}
-	else if (input->PressKey(DIK_D)) {
-		worldTransform_.rotation_.y += rotaSpeed;
+	else if (input->PressKey(DIK_DOWN)) {
+		worldTransform_.position_.y -= speed;
 	}
 
-	Matrix4 matRot =
-		Matrix4RotationY(worldTransform_.rotation_.y);
-	move = Vector3Normalize(Vector3Transform(move, matRot)) / 8;
 
-	//向いている方向に移動
-	if (input->PressKey(DIK_S)) {
-		worldTransform_.position_ -= move;
+	//A,Dで左右
+	if (input->PressKey(DIK_LEFT)) {
+		worldTransform_.position_.x -= speed;
 	}
-	else if (input->PressKey(DIK_W)) {
-		worldTransform_.position_ += move;
+	else if (input->PressKey(DIK_RIGHT)) {
+		worldTransform_.position_.x += speed;
 	}
 
 	Object3d::Update();

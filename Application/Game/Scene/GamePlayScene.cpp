@@ -50,10 +50,6 @@ void GamePlayScene::Initialize3d() {
 
 	//カメラ生成
 	camera_ = new Camera();
-
-	robotModel_ = new Model();
-	robotModel_ = Model::LoadFromOBJ("robot", false);
-
 	skydomeModel_ = new Model();
 	skydomeModel_ = Model::LoadFromOBJ("skydome", true);
 
@@ -63,19 +59,26 @@ void GamePlayScene::Initialize3d() {
 	groundModel_ = new Model();
 	groundModel_ = Model::LoadFromOBJ("ground", true);
 
-	robotObj_ = Character::Create(robotModel_);
-	robotObj_->SetScale({ 1, 1, 1 });
-	robotObj_->SetPosition({ 0,0,0 });
-	robotObj_->SetCamera(camera_);
-	robotObj_->SetCollider(new SphereCollider);
-	robotObj_->Update();
+	triangleModel_ = new Model();
+	triangleModel_ = Model::LoadFromOBJ("triangle_mat", true);
 
-	sphereObj_ = Ball::Create(sphereModel_);
+	sphereObj_ = Character::Create(sphereModel_);
 	sphereObj_->SetScale({ 1, 1, 1 });
 	sphereObj_->SetPosition({ 0,0,0 });
 	sphereObj_->SetCamera(camera_);
 	sphereObj_->SetCollider(new SphereCollider);
 	sphereObj_->Update();
+
+	triangleObj_ = TouchableObject::Create(triangleModel_);
+	triangleObj_->SetScale({ 3,3, 3});
+	triangleObj_->SetPosition({ 10,0,0 });
+	triangleObj_->SetRotation({
+		ConvertToRadian(-10.0f),
+		ConvertToRadian(-10.0f),
+		0
+		});
+	triangleObj_->SetCamera(camera_);
+	triangleObj_->Update();
 
 	skydomeObj_ = Object3d::Create();
 	skydomeObj_->SetModel(skydomeModel_);
@@ -86,6 +89,8 @@ void GamePlayScene::Initialize3d() {
 	groundObj_ = TouchableObject::Create(groundModel_);
 	groundObj_->SetCamera(camera_);
 	groundObj_->Update();
+
+
 
 	//ライト生成
 	light_ = new Light();
@@ -166,8 +171,8 @@ void GamePlayScene::Update3d() {
 	skydomeObj_->Update();
 	groundObj_->Update();
 
+	triangleObj_->Update();
 	sphereObj_->Update();
-	robotObj_->Update();
 
 	//全ての衝突判定をチェック
 	collisionManager_->CheckAllCollision();
@@ -179,15 +184,13 @@ void GamePlayScene::Update2d() {
 void GamePlayScene::Draw3d() {
 	skydomeObj_->Draw();
 	groundObj_->Draw();
+	triangleObj_->Draw();
 	sphereObj_->Draw();
-	robotObj_->Draw();
 }
 
 void GamePlayScene::Draw2d() {
-	//sprite_->Draw();
-	debugText_.DrawAll();
-	robotObj_->DrawUi();
 	sphereObj_->DrawUi();
+	debugText_.DrawAll();
 }
 
 Vector3 GamePlayScene::CreateRotationVector(Vector3 axisAngle, float angleRadian) {
@@ -198,15 +201,15 @@ Vector3 GamePlayScene::CreateRotationVector(Vector3 axisAngle, float angleRadian
 }
 
 void GamePlayScene::Finalize() {
-	SafeDelete(robotObj_);
 	SafeDelete(skydomeObj_);
 	SafeDelete(sphereObj_);
 	SafeDelete(groundObj_);
+	SafeDelete(triangleObj_);
 
-	SafeDelete(robotModel_);
 	SafeDelete(skydomeModel_);
 	SafeDelete(sphereModel_);
 	SafeDelete(groundModel_);
+	SafeDelete(triangleModel_);
 
 	SafeDelete(sprite_);
 
